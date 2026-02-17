@@ -1,0 +1,116 @@
+.LoginPage {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.LoginPage__container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+
+.LoginPage__title {
+  font-size: 30px;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto 24px auto;
+}
+
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 옵션 영역 */
+.FormOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+.FormCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.FormLink {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.FormLink:hover {
+  text-decoration: underline;
+}
+
+/* 버튼 */
+.PrimaryButton {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.GoogleButton {
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.GoogleIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Divider */
+.Divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.Divider::before,
+.Divider::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+/* Footer */
+.FormFooter {
+  font-size: 13px;
+  text-align: center;
+}
+
+.Strong {
+  font-weight: 600;
+  margin-left: 4px;
+}

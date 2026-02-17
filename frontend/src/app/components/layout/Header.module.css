@@ -1,0 +1,73 @@
+/* src/components/layout/Header.module.css */
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  height: 68px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* 왼쪽 브랜드 영역 */
+.Header__left {
+  display: flex;
+  align-items: center;
+}
+
+.Header__brandButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  margin-left: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.Header__logo {
+  width: 101px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* 오른쪽 영역 */
+.Header__right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 아이콘 버튼 */
+.Header__iconButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: none;
+  background-color: transparent;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.Header__iconButton:hover {
+  background-color: #f2f2f2;
+}
+
+.Header__iconSvg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.Header__iconImage {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}

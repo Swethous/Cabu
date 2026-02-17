@@ -1,0 +1,379 @@
+/* PostItem.module.css */
+
+/* =========================
+   Card layout
+========================= */
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+}
+
+/* =========================
+   Left: avatar
+========================= */
+.avatarCol {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+}
+
+.avatarFallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  background: #f2f4f7;
+  color: #344054;
+  border: 1px solid #eaecf0;
+}
+
+/* =========================
+   Right: header (name/time/menu)
+========================= */
+.contentCol {
+  min-width: 0; /* 긴 텍스트 레이아웃 깨짐 방지 */
+}
+
+.nameBlock {
+  margin-bottom: 8px;
+}
+
+.nameRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nameText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.userName {
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #111827;
+  word-break: break-word;
+}
+
+.time {
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.2;
+}
+
+/* =========================
+   Kebab menu
+========================= */
+.kebabWrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kebabBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  font-size: 22px;
+  line-height: 1;
+  color: #667085;
+
+  border-radius: 10px;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+
+.kebabBtn:hover {
+  background: #f2f4f7;
+}
+
+.kebabBtn:active {
+  transform: scale(0.98);
+}
+
+.kebabMenu {
+  position: absolute;
+  top: 34px;
+  right: 0;
+
+  min-width: 140px;
+  padding: 6px;
+
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  box-shadow: 0 12px 26px rgba(16, 24, 40, 0.12);
+  z-index: 20;
+}
+
+.kebabItem {
+  width: 100%;
+  text-align: left;
+
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  padding: 8px 10px;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+
+  transition: background 0.12s ease;
+}
+
+.kebabItem:hover {
+  background: #f2f4f7;
+}
+
+.danger {
+  color: #b42318;
+}
+
+.danger:hover {
+  background: #fef3f2;
+}
+
+/* =========================
+   Body (clamp / expand)
+========================= */
+.body {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #111827;
+  opacity: 0.95;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bodyClamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.bodyExpanded {
+  display: block;
+  overflow: visible;
+}
+
+.moreBtn {
+  margin-top: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 700;
+  color: #667085;
+  cursor: pointer;
+
+  transition: color 0.12s ease;
+}
+
+.moreBtn:hover {
+  color: #475467;
+  text-decoration: underline;
+}
+
+/* =========================
+   Image thumbnail button + hover
+========================= */
+.imageBtn {
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.postImage {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  height: auto;
+
+  border-radius: 12px;
+  object-fit: contain;
+
+  transition: transform 0.14s ease, filter 0.14s ease;
+}
+
+.imageBtn:hover .postImage {
+  transform: translateY(-1px) scale(1.01);
+  filter: drop-shadow(0 10px 18px rgba(16, 24, 40, 0.14));
+}
+
+.imageBtn:active .postImage {
+  transform: translateY(0px) scale(0.995);
+  filter: none;
+}
+
+/* =========================
+   Image modal
+========================= */
+.imgBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.imgModal {
+  position: relative;
+  max-width: min(900px, 96vw);
+  max-height: 88vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.imgFull {
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  background: #111;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+}
+
+.imgClose {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 0;
+
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+
+  font-size: 22px;
+  line-height: 1;
+  color: #111827;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.imgClose:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.18));
+}
+
+.imgClose:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   Meta row (Like / Comment)
+   - NO box background/border
+   - hover: float 느낌
+========================= */
+.metaRow {
+  margin-top: 10px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border: 0;
+  background: transparent;
+  padding: 4px 2px;
+  cursor: pointer;
+
+  color: #667085;
+  transition: transform 0.14s ease, filter 0.14s ease, color 0.14s ease;
+}
+
+.iconBtn:hover {
+  transform: translateY(-1px) scale(1.03);
+  filter: drop-shadow(0 10px 18px rgba(16, 24, 40, 0.14));
+  color: #475467;
+}
+
+.iconBtn:active {
+  transform: translateY(0px) scale(0.99);
+  filter: none;
+}
+
+.iconBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+
+.icon {
+  flex: 0 0 auto;
+}
+
+.iconCount {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  color: inherit;
+}
+
+/* ✅ liked heart: fill red */
+.heartOn {
+  stroke: #e11d48;
+  fill: #e11d48;
+}
+
+/* =========================
+   Comments panel wrapper
+========================= */
+.commentsWrap {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eaecf0;
+}

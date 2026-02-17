@@ -1,0 +1,196 @@
+.container {
+  background:
+    radial-gradient(1200px 320px at 50% -120px, #e0edff 0%, rgba(224, 237, 255, 0) 70%),
+    #f8fafc;
+  min-height: 100vh;
+}
+
+.hero {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px 16px 12px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  padding: 14px;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background: #fff4d9;
+  color: #d97706;
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.countBadge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1f2937;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px 28px;
+}
+
+.state {
+  padding: 44px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 36px;
+}
+
+.card {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff, #f9fafb);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.09);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cardHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stockLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #e9f0ff;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.date {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.unbookmarkButton {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #f5d08a;
+  border-radius: 8px;
+  background: #fff7e6;
+  color: #d97706;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.unbookmarkButton:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+
+.unbookmarkButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.name {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.meta {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.sentinel {
+  height: 10px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 40px;
+  }
+
+  .hero {
+    max-width: 920px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .content {
+    max-width: 920px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}

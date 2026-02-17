@@ -1,0 +1,27 @@
+source "https://rubygems.org"
+
+gem "rails", "~> 7.2.3"
+gem "pg", "~> 1.1"
+gem "puma", ">= 5.0"
+gem "faraday", "~> 2.14"    # 주식 API 호출용
+gem "dotenv-rails"          # 환경변수
+gem "redis"
+# Sidekiq 7 scheduler is not compatible with connection_pool 3.x yet.
+gem "connection_pool", "~> 2.5"
+gem "sidekiq", "~> 7.3"
+gem "sidekiq-cron", "~> 2.3"
+gem "bcrypt"                # 비밀번호 암호화
+gem "jwt"                   # 로그인 토큰 발급용 (추가 추천)
+gem "rack-cors"             # CORS 허용 (React 접근)
+gem "bootsnap", require: false
+
+gem "faraday-cookie_jar", "~> 0.0.8"
+gem "faraday-follow_redirects", "~> 0.3"  # 쿠키 지원용 Faraday 미들웨어
+
+group :development, :test do
+  gem "debug", require: "debug/prelude"
+  gem "brakeman", require: false
+  gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails", "~> 7.1.1"
+  gem "factory_bot_rails"
+end

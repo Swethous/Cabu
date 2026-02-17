@@ -1,0 +1,130 @@
+/* 전체 페이지 */
+.RegisterPage {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* 가운데 고정 너비 컨테이너 */
+.RegisterPage__container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+
+.RegisterPage__title {
+  font-size: 24px;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto 8px auto;
+}
+
+.RegisterPage__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.RegisterPage__error {
+  font-size: 13px;
+  color: #ef4444;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+/* ===== 폼 레이아웃(필드 간격만) ===== */
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== 버튼 ===== */
+.PrimaryButton {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.PrimaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Divider */
+.Divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.Divider::before,
+.Divider::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+/* Google button */
+.GoogleButton {
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.GoogleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.GoogleIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Footer 링크 */
+.FormFooter {
+  font-size: 13px;
+  text-align: center;
+}
+
+.FormLink {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.FormLink:hover {
+  text-decoration: underline;
+}
+
+.Strong {
+  font-weight: 600;
+  margin-left: 4px;
+}

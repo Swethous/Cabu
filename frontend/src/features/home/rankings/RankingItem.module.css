@@ -1,0 +1,188 @@
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: linear-gradient(180deg, #fff, #f9fafb);
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.item:hover {
+    border-color: #dbe7f3;
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.09);
+}
+
+.rankCol {
+    flex-shrink: 0;
+    width: 32px;
+}
+
+.rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.topRank {
+    background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+    color: #fff;
+    font-weight: 700;
+}
+
+.infoCol {
+    flex: 1;
+    min-width: 0;
+}
+
+.symbol {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.name {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.priceCol {
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 80px;
+}
+
+.price {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.01em;
+}
+
+.change {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.up {
+    color: #2563eb;
+}
+
+.down {
+    color: #dc2626;
+}
+
+.score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f59e0b;
+    margin-top: 2px;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+}
+
+.skeletonRank {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeletonInfo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.skeletonName {
+    height: 15px;
+    width: 65%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeletonSymbol {
+    height: 12px;
+    width: 45%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeletonPrice {
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.skeletonPriceValue {
+    height: 17px;
+    width: 70px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeletonChange {
+    height: 13px;
+    width: 55px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

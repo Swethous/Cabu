@@ -1,0 +1,78 @@
+.section {
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.state {
+  padding: 12px;
+  color: #6b7280;
+}
+
+.stateError {
+  padding: 12px;
+  color: #ef4444;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.card {
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.up {}
+.down {}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 6px 0 2px;
+}
+
+.delta {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.chartWrap {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,29 @@
+{
+  "name": "stock_community_frotend_nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "bash ./scripts/next-with-root-env.sh dev",
+    "build": "bash ./scripts/next-with-root-env.sh build",
+    "start": "bash ./scripts/next-with-root-env.sh start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.93.3",
+    "@tanstack/react-query": "^5.90.16",
+    "lightweight-charts": "^5.1.0",
+    "lucide-react": "^0.563.0",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "typescript": "^5"
+  }
+}

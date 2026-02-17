@@ -1,0 +1,28 @@
+.main {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background:
+      radial-gradient(1200px 320px at 50% -120px, #e0edff 0%, rgba(224, 237, 255, 0) 70%),
+      #f8fafc;
+    min-height: calc(100vh - 56px);
+}
+
+@media (max-width: 480px) {
+    .main {
+        padding: 8px;
+        gap: 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main {
+        padding: 24px 24px 36px;
+        gap: 16px;
+    }
+}

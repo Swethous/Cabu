@@ -1,0 +1,127 @@
+/* src/features/mypage/components/MyPageClient.module.css */
+.container {
+    background:
+        radial-gradient(1200px 320px at 50% -120px, #e0edff 0%, rgba(224, 237, 255, 0) 70%),
+        #f8fafc;
+    min-height: 100vh;
+}
+
+.loading,
+.error {
+    max-width: 720px;
+    margin: 24px auto;
+    padding: 44px 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #64748b;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 16px 12px;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    padding: 14px;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.subtitle {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.countBadge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1f2937;
+    background: #f3f4f6;
+    border-radius: 999px;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+
+.content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 16px 28px;
+}
+
+.tabsContainer {
+    position: sticky;
+    top: 56px;
+    z-index: 8;
+    margin: 10px 0 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    padding: 4px;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.activeTab {
+    color: #1d4ed8;
+    background: #e9f0ff;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding-top: 40px;
+    }
+
+    .hero {
+        max-width: 920px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .content {
+        max-width: 920px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .tabsContainer {
+        top: 72px;
+    }
+}

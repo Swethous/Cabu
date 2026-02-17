@@ -1,0 +1,13 @@
+[Cabu] 新しいお問い合わせが届きました
+
+ID: <%= @inquiry.id %>
+カテゴリ: <%= @category_label %> (<%= @inquiry.category %>)
+返信先メール: <%= @inquiry.reply_email %>
+ユーザーID: <%= @inquiry.user_id || "-" %>
+受付日時: <%= @inquiry.created_at.iso8601 %>
+
+件名:
+<%= @inquiry.subject %>
+
+内容:
+<%= @inquiry.body %>

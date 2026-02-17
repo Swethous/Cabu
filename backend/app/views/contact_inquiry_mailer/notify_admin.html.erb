@@ -1,0 +1,15 @@
+<h2>[Cabu] 新しいお問い合わせが届きました</h2>
+
+<ul>
+  <li><strong>ID:</strong> <%= @inquiry.id %></li>
+  <li><strong>カテゴリ:</strong> <%= @category_label %> (<%= @inquiry.category %>)</li>
+  <li><strong>返信先メール:</strong> <%= @inquiry.reply_email %></li>
+  <li><strong>ユーザーID:</strong> <%= @inquiry.user_id || "-" %></li>
+  <li><strong>受付日時:</strong> <%= @inquiry.created_at.iso8601 %></li>
+</ul>
+
+<h3>件名</h3>
+<p><%= @inquiry.subject %></p>
+
+<h3>内容</h3>
+<pre style="white-space: pre-wrap;"><%= @inquiry.body %></pre>

@@ -1,0 +1,173 @@
+.section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 16px 14px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+
+.subtitle {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.marketToggle {
+    display: flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 10px;
+    gap: 2px;
+    border: 1px solid #e2e8f0;
+}
+
+.marketBtn {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #64748b;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.marketBtn:hover {
+    color: #344054;
+}
+
+.activeMarket {
+    background: #fff;
+    color: #0f172a;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.tabs {
+    display: flex;
+    gap: 6px;
+    padding: 0 14px 12px;
+    border-bottom: 1px solid #eef2f7;
+    overflow-x: auto;
+}
+
+.tab {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    min-height: 34px;
+    padding: 0 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.activeTab {
+    color: #1d4ed8;
+    background: #e9f0ff;
+}
+
+.content {
+    padding: 12px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 200px;
+}
+
+.empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.skeleton {
+    height: 66px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: linear-gradient(90deg, #f8fafc 25%, #edf2f7 50%, #f8fafc 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeletonRank {
+    display: none;
+}
+
+.skeletonInfo {
+    display: none;
+}
+
+.skeletonName {
+    display: none;
+}
+
+.skeletonSymbol {
+    display: none;
+}
+
+.skeletonPrice {
+    display: none;
+}
+
+.skeletonPriceValue {
+    display: none;
+}
+
+.skeletonChange {
+    display: none;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .header {
+        padding: 18px 16px 12px;
+    }
+
+    .tabs {
+        padding: 0 16px 12px;
+    }
+
+    .content {
+        padding: 12px 14px 16px;
+    }
+}

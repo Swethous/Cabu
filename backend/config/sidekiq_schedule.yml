@@ -1,0 +1,18 @@
+# 스케줄이 같은 분(특히 0분)에 몰리지 않도록 오프셋 분산
+update_sparkline_candles:
+  cron: "1-59/5 * * * *"
+  class: "UpdateSparklineCandlesWorker"
+  queue: default
+  description: "Update sparkline candles every 5 minutes"
+
+update_rankings:
+  cron: "2,32 * * * *"
+  class: "UpdateRankingsWorker"
+  queue: default
+  description: "Update rankings every 30 minutes"
+
+update_popular_rankings:
+  cron: "4,14,24,34,44,54 * * * *"
+  class: "UpdatePopularRankingsWorker"
+  queue: default
+  description: "Update popular rankings every 10 minutes"
