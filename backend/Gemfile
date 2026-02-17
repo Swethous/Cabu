@@ -7,7 +7,7 @@ gem "faraday", "~> 2.14"    # 주식 API 호출용
 gem "dotenv-rails"          # 환경변수
 gem "redis"
 # Sidekiq 7 scheduler is not compatible with connection_pool 3.x yet.
-gem "connection_pool", "~> 2.5"
+gem "connection_pool", "~> 3.0"
 gem "sidekiq", "~> 7.3"
 gem "sidekiq-cron", "~> 2.3"
 gem "bcrypt"                # 비밀번호 암호화
