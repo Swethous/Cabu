@@ -23,20 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Wait for active Fly release
-        run: |
-          for i in {1..30}; do
-            status=$(flyctl releases -a stock-community -j | ruby -rjson -e 'data = JSON.parse(STDIN.read); puts(data[0]["Status"])')
-            if [ "$status" != "running" ]; then
-              echo "Latest release status: $status"
-              exit 0
-            fi
-            echo "Latest release is still running; waiting 20s..."
-            sleep 20
-          done
-          echo "Timed out waiting for previous running release to finish"
-          exit 1
-      - run: flyctl deploy --remote-only --release-command-timeout 15m --wait-timeout 15m --deploy-retries 2
+      - run: flyctl deploy --remote-only --skip-release-command --wait-timeout 15m --deploy-retries 2
+      - name: Run migrations via SSH
+        run: timeout 10m flyctl ssh console -a stock-community -C "bin/rails db:migrate"
       - name: Show Fly logs on failure
         if: failure()
         run: flyctl logs -a stock-community --no-tail
+      - name: Show Fly release state on failure
+        if: failure()
+        run: flyctl releases -a stock-community
