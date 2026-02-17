@@ -25,5 +25,5 @@ COPY . .
 # ❌ 더 이상 assets:precompile 필요 없음 (뷰/JS 없음)
 # RUN bundle exec rails assets:precompile
 
-# ✅ 컨테이너 기동 시 마이그레이션 + 서버 실행
-CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000"]
+# ✅ 컨테이너는 앱 서버만 실행 (마이그레이션은 fly release_command에서 실행)
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
