@@ -121,30 +121,3 @@ fly scale count app=1 worker=1 -a stock-community
 cd backend
 fly ssh console -a stock-community
 ```
-
-## 6) Issue Migration (Old Repo -> New Repo)
-
-닫힌 이슈 포함 전체 이슈를 이전하려면:
-
-```bash
-cd /Users/min/workspace/project/cabu
-./infra/scripts/transfer_issues.sh --from <OLD_OWNER/OLD_REPO> --to <NEW_OWNER/NEW_REPO>
-```
-
-위 명령은 기본이 dry-run(미실행)입니다. 실제 이전 실행:
-
-```bash
-cd /Users/min/workspace/project/cabu
-./infra/scripts/transfer_issues.sh --from <OLD_OWNER/OLD_REPO> --to <NEW_OWNER/NEW_REPO> --confirm
-```
-
-예시:
-
-```bash
-cd /Users/min/workspace/project/cabu
-./infra/scripts/transfer_issues.sh --from Swethous/stock_community --to Swethous/Cabu --confirm
-```
-
-요구사항:
-- `gh` CLI 설치 및 로그인(`gh auth login`)
-- 이슈 이전 권한 보유

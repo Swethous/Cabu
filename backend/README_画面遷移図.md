@@ -10,8 +10,8 @@ Figma：https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobi
 - [✔] 会員登録 / ログイン（JWT）  
 - [✔] 株価チャート表示（Yahoo Finance API）  
 - [✔] 人気 / 急上昇 / 急落 銘柄リスト
-- [✔]銘柄検索機能
-- [✔]銘柄詳細ページ  
+- [✔] 銘柄検索機能
+- [✔] 銘柄詳細ページ  
   - チャート  
   - 出来高グラフ  
   - コメント（投稿 / 表示）  
