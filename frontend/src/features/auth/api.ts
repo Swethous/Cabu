@@ -40,3 +40,33 @@ export async function logoutApi() {
   const res = await fetch("/api/auth/logout", { method: "DELETE", credentials: "include" });
   if (!res.ok) throw new Error(res.statusText);
 }
+
+export async function requestPasswordResetApi(payload: { email: string }) {
+  const res = await fetch("/api/auth/password-resets", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(data?.error || res.statusText), { status: res.status, data });
+  return data;
+}
+
+export async function resetPasswordApi(payload: {
+  token: string;
+  password: string;
+  password_confirmation?: string;
+}) {
+  const res = await fetch("/api/auth/password-resets", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(data?.error || res.statusText), { status: res.status, data });
+  return data;
+}

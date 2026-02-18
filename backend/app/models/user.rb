@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  RESET_PASSWORD_TOKEN_TTL = 30.minutes
+
   before_create :set_default_role
 
   has_many :posts, dependent: :destroy
@@ -37,6 +39,51 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             format: { with: VALID_PASSWORD_REGEX },
             if: :password_required?
+
+  def issue_password_reset_token!
+    raw_token = SecureRandom.urlsafe_base64(32)
+
+    update!(
+      reset_password_token_digest: self.class.digest_password_reset_token(raw_token),
+      reset_password_sent_at: Time.current
+    )
+
+    raw_token
+  end
+
+  def valid_password_reset_token?(token)
+    return false if token.blank?
+    return false if reset_password_token_digest.blank? || reset_password_sent_at.blank?
+    return false if reset_password_sent_at < RESET_PASSWORD_TOKEN_TTL.ago
+
+    candidate = self.class.digest_password_reset_token(token)
+    ActiveSupport::SecurityUtils.secure_compare(reset_password_token_digest, candidate)
+  rescue StandardError
+    false
+  end
+
+  def clear_password_reset_token!
+    update_columns(
+      reset_password_token_digest: nil,
+      reset_password_sent_at: nil,
+      updated_at: Time.current
+    )
+  end
+
+  def self.find_by_valid_password_reset_token(token)
+    return nil if token.blank?
+
+    digest = digest_password_reset_token(token)
+    user = find_by(reset_password_token_digest: digest)
+    return nil unless user&.valid_password_reset_token?(token)
+
+    user
+  end
+
+  def self.digest_password_reset_token(token)
+    secret = Rails.application.secret_key_base
+    OpenSSL::HMAC.hexdigest("SHA256", secret, token.to_s)
+  end
 
   private
 
