@@ -1,0 +1,84 @@
+.Page {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.Container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+
+.Title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+
+.Subtitle {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7280;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Error {
+  margin: 0 0 12px 0;
+  color: #dc2626;
+  font-size: 13px;
+  text-align: center;
+}
+
+.Success {
+  margin: 0 0 12px 0;
+  color: #166534;
+  font-size: 13px;
+  text-align: center;
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.PrimaryButton {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.PrimaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.Footer {
+  font-size: 13px;
+  text-align: center;
+}
+
+.Link {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.Link:hover {
+  text-decoration: underline;
+}

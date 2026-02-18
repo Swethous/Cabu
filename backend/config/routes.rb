@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       get    "me",     to: "users#me"
       post "register", to: "registrations#create"
       post "auth/google", to: "google_auth#create"
+      post "password_resets", to: "password_resets#create"
+      patch "password_resets", to: "password_resets#update"
 
       # 헬스 체크
       get "health", to: "health#index"
