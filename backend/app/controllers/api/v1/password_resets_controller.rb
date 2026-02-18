@@ -42,7 +42,7 @@ class Api::V1::PasswordResetsController < ApplicationController
 
   def send_password_reset_email(user)
     token = user.issue_password_reset_token!
-    PasswordResetMailer.with(user: user, token: token).reset_password.deliver_later
+    PasswordResetMailer.with(user: user, token: token).reset_password.deliver_now
   rescue StandardError => e
     Rails.logger.error("[PasswordReset] failed to send email user_id=#{user.id} error=#{e.class}: #{e.message}")
   end
