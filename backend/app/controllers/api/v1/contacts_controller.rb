@@ -37,7 +37,7 @@ class Api::V1::ContactsController < ApplicationController
   end
 
   def send_admin_notification(inquiry)
-    ContactInquiryMailer.notify_admin(inquiry).deliver_later
+    ContactInquiryMailer.notify_admin(inquiry).deliver_now
   rescue StandardError => e
     Rails.logger.error("[ContactInquiryMailer] delivery failed inquiry_id=#{inquiry.id} error=#{e.class}: #{e.message}")
   end

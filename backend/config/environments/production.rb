@@ -71,8 +71,8 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use Sidekiq for Active Job in production.
-  config.active_job.queue_adapter = :sidekiq
+  # Default to in-process async jobs to avoid external queue dependencies.
+  config.active_job.queue_adapter = ENV.fetch("ACTIVE_JOB_QUEUE_ADAPTER", "async").to_sym
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
