@@ -76,13 +76,13 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
     router.push("/login");
   };
 
+  if (!isOpen) return null;
+
   return (
     <>
       {/* 오버레이 */}
       <div
-        className={`${styles.ProfileDrawer__overlay} ${
-          isOpen ? styles["is-open"] : ""
-        }`}
+        className={`${styles.ProfileDrawer__overlay} ${styles["is-open"]}`}
         onClick={safeClose}
         aria-hidden="true"
       />
@@ -90,8 +90,8 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
       {/* 오른쪽 슬라이드 패널 */}
       <aside
         ref={drawerRef}
-        className={`${styles.ProfileDrawer} ${isOpen ? styles["is-open"] : ""}`}
-        aria-hidden={!isOpen}
+        className={`${styles.ProfileDrawer} ${styles["is-open"]}`}
+        aria-hidden={false}
       >
         <div className={styles.ProfileDrawer__header}>
           <h2>プロフィール</h2>
