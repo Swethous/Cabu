@@ -35,7 +35,7 @@ const Header: FC<HeaderProps> = ({ onMenuClick }) => {
     <>
       <header className={styles.Header}>
         <div className={styles.Header__left}>
-          <Link className={styles.Header__brandButton} href="/" aria-label="홈으로 이동">
+          <Link className={styles.Header__brandButton} href="/" prefetch={false} aria-label="홈으로 이동">
             <Image
               src={LogoIcon}
               alt="Cabu Logo"

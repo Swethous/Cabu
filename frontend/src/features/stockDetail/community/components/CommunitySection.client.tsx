@@ -15,6 +15,7 @@ import ConfirmModal from "./ConfirmModal.client";
 import { PenSquare } from "lucide-react";
 
 export default function CommunitySection({ symbol }: { symbol: string }) {
+  const [hydrated, setHydrated] = useState(false);
   const {
     data,
     isLoading,
@@ -86,6 +87,13 @@ export default function CommunitySection({ symbol }: { symbol: string }) {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const raf = window.requestAnimationFrame(() => {
+      setHydrated(true);
+    });
+    return () => window.cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
     const el = sentinelRef.current;
     if (!el) return;
 
@@ -104,6 +112,21 @@ export default function CommunitySection({ symbol }: { symbol: string }) {
     io.observe(el);
     return () => io.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (!hydrated) {
+    return (
+      <section className={styles.section} aria-busy="true">
+        <header className={styles.header}>
+          <h2 className={styles.title}>コミュニティ</h2>
+          <button type="button" className={styles.newPostBtn} disabled>
+            <PenSquare size={15} />
+            投稿する
+          </button>
+        </header>
+        <div className={styles.muted}>投稿を読み込み中...</div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section}>

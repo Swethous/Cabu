@@ -124,7 +124,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
         <nav className={styles.ProfileDrawer__menu}>
           {isLoggedIn && (
             <>
-              <Link href="/my" className={styles.ProfileDrawer__item} onClick={safeClose}>
+              <Link href="/my" prefetch={false} className={styles.ProfileDrawer__item} onClick={safeClose}>
                 <CircleUserRound size={18} className={styles.ProfileDrawer__itemIcon} />
                 <span>マイページ</span>
                 <ChevronRight size={16} className={styles.ProfileDrawer__itemArrow} />
@@ -132,6 +132,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
 
               <Link
                 href="/bookmarks"
+                prefetch={false}
                 className={styles.ProfileDrawer__item}
                 onClick={safeClose}
               >
@@ -142,7 +143,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
             </>
           )}
 
-          <Link href="/contact" className={styles.ProfileDrawer__item} onClick={safeClose}>
+          <Link href="/contact" prefetch={false} className={styles.ProfileDrawer__item} onClick={safeClose}>
             <Mail size={18} className={styles.ProfileDrawer__itemIcon} />
             <span>お問い合わせ</span>
             <ChevronRight size={16} className={styles.ProfileDrawer__itemArrow} />

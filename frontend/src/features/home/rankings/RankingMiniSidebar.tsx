@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   ChevronRight,
@@ -17,6 +17,7 @@ type Category = "popular" | "market_cap" | "gainers" | "losers";
 type Market = "US" | "JP";
 
 export default function RankingMiniSidebar({ currentSymbol }: { currentSymbol: string }) {
+  const [hydrated, setHydrated] = useState(false);
   const [category, setCategory] = useState<Category>("popular");
   const [market, setMarket] = useState<Market>("JP");
   const { data, isLoading, isError } = useQuery({
@@ -30,6 +31,30 @@ export default function RankingMiniSidebar({ currentSymbol }: { currentSymbol: s
     if (category === "popular") return rankings.popular ?? [];
     return rankings[`${market}:${category}`] ?? [];
   }, [data, category, market]);
+
+  useEffect(() => {
+    const raf = window.requestAnimationFrame(() => {
+      setHydrated(true);
+    });
+    return () => window.cancelAnimationFrame(raf);
+  }, []);
+
+  if (!hydrated) {
+    return (
+      <section className={styles.panel} aria-busy="true">
+        <header className={styles.header}>
+          <h3 className={styles.title}>人気ランキング</h3>
+          <span className={styles.badge}>TOP 8</span>
+        </header>
+        <div className={styles.state}>
+          <div className={styles.skeleton} />
+          <div className={styles.skeleton} />
+          <div className={styles.skeleton} />
+          <div className={styles.skeleton} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.panel}>
