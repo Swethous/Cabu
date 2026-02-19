@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   before_create :set_default_role
   before_validation :assign_random_default_avatar, on: :create
+  before_validation :normalize_name
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -29,6 +30,10 @@ class User < ApplicationRecord
             presence: true,
             uniqueness: true,
             format: { with: VALID_EMAIL_REGEX }
+
+  validates :name,
+            presence: { message: "を入力してください" },
+            uniqueness: { case_sensitive: false, message: "は既に使用されています" }
 
   # =========================
   # 비밀번호 유효성 검사
@@ -112,5 +117,9 @@ class User < ApplicationRecord
     return if avatar_url.present?
 
     self.avatar_url = DEFAULT_AVATAR_PATHS.sample
+  end
+
+  def normalize_name
+    self.name = name.to_s.strip.presence
   end
 end

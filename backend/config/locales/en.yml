@@ -32,4 +32,5 @@ en:
   activerecord:
     attributes:
       user:
+        name: "ニックネーム"
         password: "パスワード"

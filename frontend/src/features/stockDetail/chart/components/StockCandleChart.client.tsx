@@ -39,10 +39,27 @@ function formatTick(epochSec: number, mode: Mode, timeZone?: string) {
       minute: "2-digit",
     }).format(d);
   }
+  if (mode === "daily") {
+    const day = Number(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone,
+        day: "numeric",
+      }).format(d)
+    );
+
+    // Show labels at half-month steps for better readability on daily candles.
+    if (day !== 1 && day !== 15) return "";
+
+    return new Intl.DateTimeFormat("ja-JP", {
+      timeZone,
+      month: "numeric",
+      day: "numeric",
+    }).format(d);
+  }
   if (mode === "yearly") {
     return new Intl.DateTimeFormat("ja-JP", { timeZone, year: "numeric" }).format(d);
   }
-  // daily/weekly/monthly
+  // weekly/monthly
   return new Intl.DateTimeFormat("ja-JP", { timeZone, month: "numeric" }).format(d) + "月";
 }
 
