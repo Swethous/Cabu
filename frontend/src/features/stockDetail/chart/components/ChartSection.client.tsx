@@ -30,6 +30,19 @@ type Props = {
   volumes: Volume[];
 };
 
+function normalizeDisplayLabel(label: string, symbol: string) {
+  const trimmed = label.trim();
+  const suffix = trimmed.match(/\s+\(([^)]+)\)\s*$/);
+  if (!suffix?.[1]) return trimmed;
+
+  const suffixSymbol = suffix[1].trim().toUpperCase();
+  const baseSymbol = symbol.trim().toUpperCase().replace(/^\^/, "");
+  const symbolCandidates = new Set([baseSymbol, `^${baseSymbol}`]);
+
+  if (!symbolCandidates.has(suffixSymbol)) return trimmed;
+  return trimmed.slice(0, suffix.index).trim();
+}
+
 function formatPrice(n: number, currency: string) {
   const digits = currency === "JPY" ? 0 : 2;
   return n.toLocaleString("ja-JP", {
@@ -40,6 +53,10 @@ function formatPrice(n: number, currency: string) {
 
 export default function ChartSection(props: Props) {
   const { symbol, displayLabel, currency, exchangeTz, mode, period, interval, candles, volumes } = props;
+  const normalizedLabel = useMemo(
+    () => normalizeDisplayLabel(displayLabel, symbol),
+    [displayLabel, symbol]
+  );
 
   const router = useRouter();
   const pathname = usePathname();
@@ -104,7 +121,7 @@ export default function ChartSection(props: Props) {
       {/* header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ fontWeight: 900, fontSize: 18 }}>{displayLabel}</div>
+          <div style={{ fontWeight: 900, fontSize: 18 }}>{normalizedLabel}</div>
           <button
             type="button"
             onClick={onClickBookmark}
