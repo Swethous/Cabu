@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   RESET_PASSWORD_TOKEN_TTL = 30.minutes
+  DEFAULT_AVATAR_PATHS = (1..8).map { |n| format("/avatars/avatar_%<num>02d.png", num: n) }.freeze
 
   before_create :set_default_role
+  before_validation :assign_random_default_avatar, on: :create
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -36,8 +38,14 @@ class User < ApplicationRecord
   # 2. 영문 + 숫자 조합
   # 3. 새 유저 생성 또는 비밀번호 변경 시에만 검증
   validates :password,
-            length: { minimum: 6 },
-            format: { with: VALID_PASSWORD_REGEX },
+            length: {
+              minimum: 6,
+              too_short: "は6文字以上で入力してください"
+            },
+            format: {
+              with: VALID_PASSWORD_REGEX,
+              message: "は英字と数字をそれぞれ1文字以上含めてください"
+            },
             if: :password_required?
 
   def issue_password_reset_token!
@@ -98,5 +106,11 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= "member"
+  end
+
+  def assign_random_default_avatar
+    return if avatar_url.present?
+
+    self.avatar_url = DEFAULT_AVATAR_PATHS.sample
   end
 end

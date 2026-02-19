@@ -148,6 +148,56 @@
     cursor: not-allowed;
 }
 
+.defaultAvatarSection {
+    margin-top: 12px;
+}
+
+.defaultAvatarTitle {
+    font-size: 12px;
+    font-weight: 700;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.avatarGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.avatarOption {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+}
+
+.avatarOption:hover {
+    border-color: #6b7280;
+}
+
+.avatarOption:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.avatarOptionSelected {
+    border-color: #111827;
+    box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.12);
+}
+
+.avatarOptionImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .previewInner {
     position: relative;
     width: 100px;

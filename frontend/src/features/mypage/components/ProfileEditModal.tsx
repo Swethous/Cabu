@@ -9,6 +9,19 @@ import { uploadAvatarImage } from "../api/uploadAvatarImage.client";
 import { toast } from "sonner";
 import { X, Image as ImageIcon, RefreshCcw, Trash2 } from "lucide-react";
 
+const DEFAULT_AVATAR_OPTIONS = Array.from(
+  { length: 8 },
+  (_, i) => `/avatars/avatar_${String(i + 1).padStart(2, "0")}.png`
+);
+
+const normalizeAvatarPath = (url: string) => {
+  try {
+    return new URL(url, "http://localhost").pathname;
+  } catch {
+    return url;
+  }
+};
+
 export default function ProfileEditModal({
   profile,
   onClose,
@@ -63,6 +76,13 @@ export default function ProfileEditModal({
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const selectDefaultAvatar = (url: string) => {
+    if (uploading || updateMutation.isPending) return;
+    setFile(null);
+    setAvatarUrl(url);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   const onSelectFile = async (f: File | null) => {
     if (!f) return;
 
@@ -83,9 +103,10 @@ export default function ProfileEditModal({
       setAvatarUrl(publicUrl);
       setFile(null);
       toast.success("画像をアップロードしました。");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err?.message || "画像のアップロードに失敗しました。");
+      const message = err instanceof Error ? err.message : "画像のアップロードに失敗しました。";
+      toast.error(message);
       setFile(null);
     } finally {
       setUploading(false);
@@ -216,6 +237,28 @@ export default function ProfileEditModal({
                   <Trash2 size={18} />
                 </button>
               )}
+            </div>
+
+            <div className={styles.defaultAvatarSection}>
+              <div className={styles.defaultAvatarTitle}>基本アバターを選択</div>
+              <div className={styles.avatarGrid}>
+                {DEFAULT_AVATAR_OPTIONS.map((src) => {
+                  const selected = normalizeAvatarPath(avatarUrl) === src;
+                  return (
+                    <button
+                      key={src}
+                      type="button"
+                      className={`${styles.avatarOption} ${selected ? styles.avatarOptionSelected : ""}`}
+                      onClick={() => selectDefaultAvatar(src)}
+                      disabled={uploading || updateMutation.isPending}
+                      aria-pressed={selected}
+                      aria-label={`基本アバター ${src}`}
+                    >
+                      <img src={src} alt="" className={styles.avatarOptionImg} />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
