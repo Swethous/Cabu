@@ -19,5 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Wake app machine
+        run: curl -fsS --retry 6 --retry-delay 5 https://stock-community.fly.dev/api/v1/health
       - name: Run UpdateSparklineCandlesJob
-        run: timeout 20m flyctl ssh console -a stock-community -C "cd /app && bin/rails runner 'UpdateSparklineCandlesJob.perform_now'"
+        run: timeout 20m flyctl ssh console -a stock-community -C "bin/rails runner 'UpdateSparklineCandlesJob.perform_now'"
