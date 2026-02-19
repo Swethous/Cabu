@@ -3,7 +3,7 @@
 import type { FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Bookmark,
   CircleUserRound,
@@ -23,6 +23,9 @@ type ProfileDrawerProps = {
 const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
   const { user, isLoggedIn, logout, loading } = useAuth();
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const avatarUrl = user?.avatar_url;
+  const canShowAvatar = Boolean(avatarUrl) && brokenAvatarUrl !== avatarUrl;
 
   const drawerRef = useRef<HTMLElement | null>(null);
 
@@ -107,9 +110,20 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
 
         {/* 유저 정보 */}
         <div className={styles.ProfileDrawer__user}>
-          <div className={styles.ProfileDrawer__avatar}>
-            <span>{user?.name?.charAt(0) ?? "U"}</span>
-          </div>
+          {canShowAvatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className={styles.ProfileDrawer__avatarImage}
+              src={avatarUrl as string}
+              alt="プロフィール画像"
+              referrerPolicy="no-referrer"
+              onError={() => setBrokenAvatarUrl(avatarUrl ?? null)}
+            />
+          ) : (
+            <div className={styles.ProfileDrawer__avatar}>
+              <span>{user?.name?.charAt(0) ?? "U"}</span>
+            </div>
+          )}
 
           <div className={styles.ProfileDrawer__userInfo}>
             <div className={styles.ProfileDrawer__name}>

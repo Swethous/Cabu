@@ -15,8 +15,12 @@ import type { Comment } from "../types";
 
 export default function CommentsPanel({ post_id }: { post_id: number }) {
   const [body, setBody] = useState("");
-  const { isLoggedIn, loading } = useAuth();
+  const { user, isLoggedIn, loading } = useAuth();
   const [deleteTarget, setDeleteTarget] = useState<Comment | null>(null);
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const myAvatarUrl = user?.avatar_url;
+  const canShowMyAvatar = Boolean(myAvatarUrl) && brokenAvatarUrl !== myAvatarUrl;
+  const myInitial = (user?.name?.charAt(0) ?? "U").toUpperCase();
 
   const {
     data,
@@ -84,8 +88,9 @@ export default function CommentsPanel({ post_id }: { post_id: number }) {
       await deleteComment.mutateAsync({ comment_id: deleteTarget.id });
       toast.success("削除しました。");
       setDeleteTarget(null);
-    } catch (e: any) {
-      toast.error(e?.message ?? "削除に失敗しました。");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "削除に失敗しました。";
+      toast.error(message);
     }
   };
 
@@ -94,11 +99,18 @@ export default function CommentsPanel({ post_id }: { post_id: number }) {
       {/* ✅ 작성폼: 맨 위 */}
     <div className={styles.form}>
       <div className={styles.meCol} aria-hidden="true">
-        {/* ✅ 이름 없이 "내 아이콘"만 */}
-        <div className={styles.meAvatar}>
-          {/* 나중에 auth에 user 있으면 avatar_url 넣으면 됨 */}
-          {/* 지금은 기본 원형 */}
-        </div>
+        {canShowMyAvatar ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className={styles.meAvatar}
+            src={myAvatarUrl as string}
+            alt=""
+            referrerPolicy="no-referrer"
+            onError={() => setBrokenAvatarUrl(myAvatarUrl ?? null)}
+          />
+        ) : (
+          <div className={`${styles.meAvatar} ${styles.meAvatarFallback}`}>{myInitial}</div>
+        )}
       </div>
 
       <div className={styles.formMain}>

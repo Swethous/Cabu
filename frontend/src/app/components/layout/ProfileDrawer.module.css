@@ -89,6 +89,16 @@
   font-weight: 700;
 }
 
+.ProfileDrawer__avatarImage {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid #dbe7f3;
+  background: #fff;
+}
+
 .ProfileDrawer__userInfo {
   display: flex;
   flex-direction: column;
