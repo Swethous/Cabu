@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -25,6 +25,17 @@ const Header: FC<HeaderProps> = ({ onMenuClick }) => {
   const router = useRouter(); // 이거 추가
   const { isLoggedIn, loading } = useAuth();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const raf = window.requestAnimationFrame(() => {
+      setHydrated(true);
+    });
+
+    return () => window.cancelAnimationFrame(raf);
+  }, []);
+
+  if (!hydrated) return null;
 
   const handleSelect = (it: AutocompleteSelectItem) => {
     setSearchOpen(false); // 선택하면 모달 닫기
