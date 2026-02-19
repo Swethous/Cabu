@@ -7,6 +7,8 @@ import { useCreateCommunityPost } from "../hooks/useCreateCommunityPost";
 import { uploadPostImage } from "../api/uploadApi.client";
 import { Image as ImageIcon, RefreshCcw, Trash2 } from "lucide-react";
 
+const POST_BODY_MAX_LENGTH = 500;
+
 export default function NewPostModal({
   symbol,
   onClose,
@@ -88,8 +90,9 @@ export default function NewPostModal({
       const { publicUrl } = await uploadPostImage(f);
       setImageUrl(publicUrl);
       toast.success("画像をアップロードしました。");
-    } catch (e: any) {
-      toast.error(e?.message ?? "画像のアップロードに失敗しました。");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "画像のアップロードに失敗しました。";
+      toast.error(message);
       setFile(null);
       setImageUrl(null);
       resetFileInput();
@@ -101,6 +104,10 @@ export default function NewPostModal({
   const onSubmit = async () => {
     if (!body.trim()) return;
     if (uploading) return;
+    if (body.length > POST_BODY_MAX_LENGTH) {
+      toast.error(`本文は${POST_BODY_MAX_LENGTH}文字以内で入力してください。`);
+      return;
+    }
 
     if (file && !imageUrl) {
       toast.error("画像のアップロードが完了していません。");
@@ -117,13 +124,15 @@ export default function NewPostModal({
       setBody("");
       removeImage();
       onClose();
-    } catch (e: any) {
-      toast.error(e?.message ?? "投稿に失敗しました。");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "投稿に失敗しました。";
+      toast.error(message);
     }
   };
 
   const submitDisabled =
     !body.trim() ||
+    body.length > POST_BODY_MAX_LENGTH ||
     createPost.isPending ||
     uploading ||
     (file !== null && !imageUrl);
@@ -173,8 +182,12 @@ export default function NewPostModal({
             onChange={(e) => setBody(e.target.value)}
             placeholder="いま何を考えていますか？"
             rows={6}
+            maxLength={POST_BODY_MAX_LENGTH}
             disabled={createPost.isPending || uploading}
           />
+          <div className={styles.charCount}>
+            {body.length}/{POST_BODY_MAX_LENGTH}
+          </div>
 
           {/* image controls */}
           <div className={styles.imageRow}>

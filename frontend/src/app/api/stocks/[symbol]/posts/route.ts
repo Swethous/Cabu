@@ -1,6 +1,8 @@
 import { proxyToRails } from "@/lib/bff";
 import { NextResponse } from "next/server";
 
+const POST_BODY_MAX_LENGTH = 500;
+
 export async function GET(req: Request, { params }: { params: Promise<{ symbol: string }> }) {
   const { symbol: raw } = await params;
   const symbol = decodeURIComponent(raw).toUpperCase();
@@ -19,6 +21,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ symbol:
 
   if (!body.trim()) {
     return NextResponse.json({ error: "Post body cannot be empty" }, { status: 400 });
+  }
+  if (body.length > POST_BODY_MAX_LENGTH) {
+    return NextResponse.json(
+      { error: `Post body must be ${POST_BODY_MAX_LENGTH} characters or fewer` },
+      { status: 400 }
+    );
   }
 
   return proxyToRails(req, `/api/v1/stocks/${encodeURIComponent(symbol)}/posts`, {

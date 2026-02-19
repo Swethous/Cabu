@@ -8,6 +8,8 @@ import { uploadPostImage } from "../api/uploadApi.client";
 import { Image as ImageIcon, RefreshCcw, Trash2 } from "lucide-react";
 import { useUpdateCommunityPost } from "../hooks/useUpdateCommunityPost";
 
+const POST_BODY_MAX_LENGTH = 500;
+
 export default function EditPostModal({
   symbol,
   post,
@@ -92,8 +94,9 @@ export default function EditPostModal({
       const { publicUrl } = await uploadPostImage(f);
       setImageUrl(publicUrl);
       toast.success("画像をアップロードしました。");
-    } catch (e: any) {
-      toast.error(e?.message ?? "画像のアップロードに失敗しました。");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "画像のアップロードに失敗しました。";
+      toast.error(message);
       setFile(null);
       resetFileInput();
     } finally {
@@ -107,12 +110,17 @@ export default function EditPostModal({
 
   const submitDisabled =
     !body.trim() ||
+    body.length > POST_BODY_MAX_LENGTH ||
     uploading ||
     saving ||
     !changed;
 
   const onSubmit = async () => {
     if (submitDisabled) return;
+    if (body.length > POST_BODY_MAX_LENGTH) {
+      toast.error(`本文は${POST_BODY_MAX_LENGTH}文字以内で入力してください。`);
+      return;
+    }
 
     if (file && !imageUrl) {
       toast.error("画像のアップロードが完了していません。");
@@ -129,8 +137,9 @@ export default function EditPostModal({
       toast.success("投稿を更新しました。");
       onUpdated?.();
       onClose();
-    } catch (e: any) {
-      toast.error(e?.message ?? "更新に失敗しました。");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "更新に失敗しました。";
+      toast.error(message);
     }
   };
 
@@ -179,8 +188,12 @@ export default function EditPostModal({
             onChange={(e) => setBody(e.target.value)}
             placeholder="内容を入力…"
             rows={6}
+            maxLength={POST_BODY_MAX_LENGTH}
             disabled={saving || uploading}
           />
+          <div className={styles.charCount}>
+            {body.length}/{POST_BODY_MAX_LENGTH}
+          </div>
 
           <div className={styles.imageRow}>
             <input

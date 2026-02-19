@@ -2,6 +2,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { proxyToRails } from "@/lib/bff";
 
+const POST_BODY_MAX_LENGTH = 500;
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -16,6 +18,12 @@ export async function PATCH(
   const imageUrl = typeof payload?.imageUrl === "string" ? payload.imageUrl : null;
   if (!body.trim()) {
     return NextResponse.json({ error: "Post body cannot be empty" }, { status: 400 });
+  }
+  if (body.length > POST_BODY_MAX_LENGTH) {
+    return NextResponse.json(
+      { error: `Post body must be ${POST_BODY_MAX_LENGTH} characters or fewer` },
+      { status: 400 }
+    );
   }
 
   return proxyToRails(req, `/api/v1/posts/${encodeURIComponent(id)}`, {
