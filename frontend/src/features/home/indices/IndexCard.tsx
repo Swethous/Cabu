@@ -59,6 +59,7 @@ const IndexCard: FC<Props> = ({ item }) => {
       <Link
         href={`/stocks/${encodeURIComponent(item.symbol)}`}
         scroll
+        prefetch={false}
         className={styles.chartLink}
         aria-label={`${item.symbol} 상세 페이지로 이동`}
       >

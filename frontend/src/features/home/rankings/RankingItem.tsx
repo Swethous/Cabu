@@ -17,7 +17,7 @@ export default function RankingItem({ item }: Props) {
     const isPopular = item.score != null;
 
     return (
-        <Link href={`/stocks/${item.symbol}`} scroll className={styles.item}>
+        <Link href={`/stocks/${item.symbol}`} scroll prefetch={false} className={styles.item}>
             <div className={styles.rankCol}>
                 <span className={`${styles.rank} ${item.rank <= 3 ? styles.topRank : ""}`}>
                     {item.rank}

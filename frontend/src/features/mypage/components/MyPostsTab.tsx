@@ -48,7 +48,7 @@ export default function MyPostsTab() {
   return (
     <div className={styles.list}>
       {posts.map((post) => (
-        <Link key={post.id} href={`/stocks/${post.stock.symbol}`} className={styles.card}>
+        <Link key={post.id} href={`/stocks/${post.stock.symbol}`} prefetch={false} className={styles.card}>
           <div className={styles.cardHeader}>
             <span className={styles.stockLabel}>
               {post.stock.name_jp || post.stock.name} ({post.stock.symbol})

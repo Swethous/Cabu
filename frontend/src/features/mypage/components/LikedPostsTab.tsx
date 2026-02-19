@@ -66,7 +66,7 @@ export default function LikedPostsTab() {
   return (
     <div className={styles.list}>
       {posts.map((post) => (
-        <Link key={post.id} href={`/stocks/${post.stock.symbol}`} className={styles.card}>
+        <Link key={post.id} href={`/stocks/${post.stock.symbol}`} prefetch={false} className={styles.card}>
           <div className={styles.cardHeader}>
             <div className={styles.authorInfo}>
               <AuthorAvatar src={post.user.avatar_url} name={post.user.name} />

@@ -135,6 +135,7 @@ export default function BookmarksPageClient() {
                 <Link
                   key={item.id}
                   href={`/stocks/${item.stock.symbol}`}
+                  prefetch={false}
                   className={styles.card}
                 >
                   <div className={styles.cardHeader}>

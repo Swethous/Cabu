@@ -120,6 +120,7 @@ export default function RankingMiniSidebar({ currentSymbol }: { currentSymbol: s
                 key={`mini-ranking-${item.id}`}
                 href={`/stocks/${item.symbol}`}
                 scroll
+                prefetch={false}
                 className={`${styles.item} ${active ? styles.active : ""}`}
               >
                 <span className={styles.rank}>{item.rank}</span>
