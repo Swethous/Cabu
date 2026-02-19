@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import Header from "./Header";
+import ProfileDrawer from "./ProfileDrawer";
 import styles from "./AppShell.module.css";
-
-const Header = dynamic(() => import("./Header"), { ssr: false });
-const ProfileDrawer = dynamic(() => import("./ProfileDrawer"), { ssr: false });
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -25,7 +23,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         onClose={() => setIsDrawerOpen(false)}
       />
 
-      <main className={styles.AppContent}>{children}</main>
+      <div className={styles.AppContent}>{children}</div>
     </div>
   );
 }
