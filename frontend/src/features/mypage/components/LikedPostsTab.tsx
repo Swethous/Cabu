@@ -1,9 +1,27 @@
 // src/features/mypage/components/LikedPostsTab.tsx
 import { useLikedPostsInfinite } from "../hooks/useLikedPostsInfinite";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Heart, MessageCircle } from "lucide-react";
 import styles from "./TabContent.module.css";
+
+function AuthorAvatar({ src, name }: { src?: string | null; name: string }) {
+  const [brokenSrc, setBrokenSrc] = useState<string | null>(null);
+
+  if (!src || brokenSrc === src) {
+    return <span className={styles.authorAvatarFallback}>{name.slice(0, 1).toUpperCase()}</span>;
+  }
+
+  return (
+    <img
+      src={src}
+      alt=""
+      className={styles.authorAvatar}
+      referrerPolicy="no-referrer"
+      onError={() => setBrokenSrc(src)}
+    />
+  );
+}
 
 export default function LikedPostsTab() {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -51,13 +69,7 @@ export default function LikedPostsTab() {
         <Link key={post.id} href={`/stocks/${post.stock.symbol}`} className={styles.card}>
           <div className={styles.cardHeader}>
             <div className={styles.authorInfo}>
-              {post.user.avatar_url && (
-                <img
-                  src={post.user.avatar_url}
-                  alt=""
-                  className={styles.authorAvatar}
-                />
-              )}
+              <AuthorAvatar src={post.user.avatar_url} name={post.user.name} />
               <span className={styles.authorName}>{post.user.name}</span>
             </div>
 

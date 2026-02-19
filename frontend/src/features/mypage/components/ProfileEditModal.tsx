@@ -182,6 +182,10 @@ export default function ProfileEditModal({
                     src={previewUrl}
                     alt="Avatar preview"
                     className={styles.avatarPreview}
+                    referrerPolicy="no-referrer"
+                    onError={() => {
+                      if (!file) setAvatarUrl("");
+                    }}
                   />
                 ) : (
                   <div

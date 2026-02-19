@@ -57,6 +57,8 @@ export default function CommentItem({
 }: Props) {
   const name = comment.user?.name ?? "Unknown";
   const avatar = comment.user?.avatar_url;
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const canShowAvatar = Boolean(avatar) && brokenAvatarUrl !== avatar;
   const [nowMs, setNowMs] = useState<number | null>(null);
   const timeAgo = useMemo(
     () => formatTimeAgoJa(comment.created_at, nowMs),
@@ -129,9 +131,15 @@ export default function CommentItem({
   return (
     <div className={styles.row}>
       <div className={styles.avatarCol}>
-        {avatar ? (
+        {canShowAvatar ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img className={styles.avatar} src={avatar} alt="" />
+          <img
+            className={styles.avatar}
+            src={avatar as string}
+            alt=""
+            referrerPolicy="no-referrer"
+            onError={() => setBrokenAvatarUrl(avatar)}
+          />
         ) : (
           <div className={styles.avatarFallback} aria-hidden="true">
             {name.slice(0, 1).toUpperCase()}

@@ -42,7 +42,6 @@ const Header: FC<HeaderProps> = ({ onMenuClick }) => {
               width={101}
               height={40}
               className={styles.Header__logo}
-              priority
             />
           </Link>
         </div>

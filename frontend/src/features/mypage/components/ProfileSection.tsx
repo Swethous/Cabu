@@ -7,13 +7,20 @@ import styles from "./ProfileSection.module.css";
 
 export default function ProfileSection({ profile }: { profile: MyProfile }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+    const canShowAvatar = Boolean(profile.avatar_url) && brokenAvatarUrl !== profile.avatar_url;
 
     return (
         <section className={styles.section}>
             <div className={styles.profileHeader}>
                 <div className={styles.avatar}>
-                    {profile.avatar_url ? (
-                        <img src={profile.avatar_url} alt={profile.name} />
+                    {canShowAvatar ? (
+                        <img
+                            src={profile.avatar_url as string}
+                            alt={profile.name}
+                            referrerPolicy="no-referrer"
+                            onError={() => setBrokenAvatarUrl(profile.avatar_url)}
+                        />
                     ) : (
                         <div className={styles.avatarPlaceholder}>{profile.name?.[0] || "?"}</div>
                     )}

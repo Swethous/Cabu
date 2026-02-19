@@ -57,6 +57,8 @@ export default function PostItem({
 }: Props) {
   const name = post.user?.name ?? "Unknown";
   const avatar = post.user?.avatar_url;
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const canShowAvatar = Boolean(avatar) && brokenAvatarUrl !== avatar;
 
   const [expanded, setExpanded] = useState(false);
   const [canExpand, setCanExpand] = useState(false);
@@ -117,9 +119,15 @@ export default function PostItem({
       <div className={styles.grid}>
         {/* LEFT */}
         <div className={styles.avatarCol}>
-          {avatar ? (
+          {canShowAvatar ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.avatar} src={avatar} alt={`${name}'s avatar`} />
+            <img
+              className={styles.avatar}
+              src={avatar as string}
+              alt={`${name}'s avatar`}
+              referrerPolicy="no-referrer"
+              onError={() => setBrokenAvatarUrl(avatar)}
+            />
           ) : (
             <div className={styles.avatarFallback} aria-hidden="true">
               {name.slice(0, 1).toUpperCase()}

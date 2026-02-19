@@ -51,7 +51,8 @@ class Api::V1::GoogleAuthController < ApplicationController
     user = User.find_or_initialize_by(email: email)
 
     user.name = payload["name"] if user.name.blank? && payload["name"].present?
-    user.avatar_url = payload["picture"] if payload["picture"].present?
+    picture_url = normalize_google_picture_url(payload["picture"])
+    user.avatar_url = picture_url if picture_url.present?
 
     if user.new_record?
       generated_password = "G#{SecureRandom.hex(16)}1"
@@ -61,6 +62,26 @@ class Api::V1::GoogleAuthController < ApplicationController
 
     user.save!
     user
+  end
+
+  def normalize_google_picture_url(raw_url)
+    url = raw_url.to_s.strip
+    return nil if url.blank?
+
+    uri = URI.parse(url)
+    return nil unless uri.is_a?(URI::HTTP) && uri.host.present?
+
+    uri.scheme = "https"
+    normalized = uri.to_s
+
+    # Ensure a deterministic size suffix for Google-hosted avatars.
+    if uri.host.end_with?("googleusercontent.com") && !normalized.match?(/=s\d+-c\z/)
+      normalized = "#{normalized}=s256-c"
+    end
+
+    normalized
+  rescue URI::InvalidURIError
+    nil
   end
 
   def serialized_user(user)
