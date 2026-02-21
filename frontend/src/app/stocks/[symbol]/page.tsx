@@ -8,6 +8,7 @@ import RankingMiniSidebar from "@/features/home/rankings/RankingMiniSidebar";
 import { fetchStockChart } from "@/features/stockDetail/chart/api/stockChartApi.server";
 import type { Interval, Period, Mode } from "@/features/stockDetail/chart/api/types";
 import { periodToMode } from "@/features/stockDetail/chart/utils/period";
+import ogDefaultImage from "@/assets/og/og-default.png";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -45,11 +46,20 @@ const buildStockMetadata = (symbol: string, displayName?: string | null): Metada
       url: canonicalPath,
       title,
       description,
+      images: [
+        {
+          url: ogDefaultImage.src,
+          width: 1200,
+          height: 630,
+          alt: "Cabu 株式コミュニティ",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [ogDefaultImage.src],
     },
   };
 };
