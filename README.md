@@ -1,9 +1,5 @@
 # 📘 株式コミュニティサービス企画案（README）
 
-##  確認用
-- [画面遷移図](backend/README_画面遷移図.md)
-- [ERD](backend/README_erd.md)
-
 ## Language
 - 🇯🇵 [日本語 README](README.md)
 - 🇰🇷 [한국어 README](backend/README_KR.md)
@@ -110,30 +106,52 @@ React + Lightweight Charts + キャッシュ構造により、
 
 ---
 
-## 🛠 技術スタック
+## 技術スタック
 
-### 🔹 バックエンド（API Server）
-- Ruby on Rails 7（API モード）  
-- JWT 認証  
-- rack-cors  
-- PostgreSQL  
-- Redis（キャッシュ、セッション、バッチ処理）  
-- Sidekiq（定期データ更新）  
-- Yahoo Finance API  
+### バックエンド
 
-### 🔹 フロントエンド
-- React 18  
-- Vite  
-- Zustand  
-- axios  
-- lightweight-charts（npm）  
-- ESLint / Prettier  
+| 技術 | バージョン / サービス | 採用理由 |
+|---|---|---|
+| Ruby | 3.3.10 | Rails 7.2 と相性がよく、安定した最新ランタイムとして採用 |
+| Ruby on Rails（API） | 7.2.3 | API中心で開発しやすく、生産性と保守性のバランスが良い |
+| 認証 | JWT + HttpOnly Cookie | トークンをHttpOnly Cookieに保存し、XSSリスクを抑えつつ認証フローを単純化 |
+| PostgreSQL | Supabase PostgreSQL（本番） | マネージドPostgreSQLで運用負荷を下げ、安定的にデータを保持 |
+| Redis | Upstash Redis（Managed） | prefixベースの自動補完（autocomplete）の高速化に活用 |
+| Faraday | 2.14 | Yahoo Finance 等の外部API連携をシンプルに実装 |
 
-### 🔹 デプロイ
-- フロントエンド：Vercel  
-- バックエンド：Fly.io（Docker）  
-- DB：Supabase PostgreSQL  
-- 画像ストレージ：Supabase Storage  
+### フロントエンド
+
+| 技術 | バージョン / サービス | 採用理由 |
+|---|---|---|
+| Next.js | 16.1.1 | App Router + Route Handlers（BFF）でSSR/SEOとAPI連携を一体運用しやすい |
+| TypeScript | 5 | 型安全性により不具合を早期に検出し、保守性を向上 |
+| TanStack Query（React Query） | 5.90.16 | サーバー状態のキャッシュ/再取得/無限スクロールなどの制御が容易 |
+| lightweight-charts | 5.1.0 | 株価チャートを軽量かつ高速に描画可能 |
+| Supabase JS | 2.93.3 | Supabase Storage（画像アップロード）連携をシンプルに実装 |
+| Sonner | 2.0.7 | 通知（Toast）UIを軽量に実装してUXを改善 |
+
+### インフラ
+
+| 技術 | バージョン / サービス | 採用理由 |
+|---|---|---|
+| Fly.io | Backend Hosting | Rails API をコンテナでシンプルにデプロイ・運用可能 |
+| Vercel | Frontend Hosting | Next.js と相性が良く、Git連携の自動デプロイ/Previewが便利 |
+| PostgreSQL | Supabase PostgreSQL（本番） | マネージドで運用コストを抑えつつ、安定運用 |
+| Redis | Upstash Redis（Managed） | prefix検索など高速アクセスが必要な機能に利用 |
+| Supabase Storage | Managed Storage | 投稿画像/アバター画像の保存・配信を簡素化 |
+| Docker Compose | `infra/docker/compose.yml` | ローカル開発環境を統一し、再現性とオンボーディングを改善 |
+
+### 開発環境・CI/CD
+
+| 技術 | バージョン / サービス | 採用理由 |
+|---|---|---|
+| Ruby | 3.3.10 | Rails 実行環境を固定し、安定運用 |
+| Node.js | 20.19.2 | Next.js 実行環境を統一 |
+| GitHub Actions | CI/CD | 品質チェックとデプロイを自動化し、運用効率を向上 |
+| CI（Backend） | Brakeman / RuboCop / Rails test | セキュリティ・コード品質・回帰確認を自動化 |
+| CD（Backend） | Fly Deploy Workflow | `main` + `backend/**` 変更時にバックエンドを自動デプロイ |
+| CD（Frontend） | Vercel Git Integration | ブランチごとにPreview、`main`はProductionへ自動反映 |
+| Scheduled Workflows | Rankings / Popular / Sparklines | 定期バッチ（ランキング/人気/スパークライン更新）をGitHub Actionsで自動実行 |
 
 ---
 
