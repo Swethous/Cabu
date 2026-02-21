@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Noto_Sans_JP } from "next/font/google";
 import type { ReactNode } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import AppShell from "./components/layout/AppShell";
@@ -6,6 +7,12 @@ import QueryProvider from "./providers";
 import { ToasterProvider } from "@/contexts/ToasterProvider";
 import { getSiteUrl } from "@/lib/seo";
 import ogDefaultImage from "@/assets/og/og-default.png";
+
+const notoSansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
 
 const defaultTitle = "Cabu | 株式コミュニティ";
 const defaultDescription =
@@ -48,7 +55,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+      <body className={notoSansJp.className} suppressHydrationWarning>
         <QueryProvider>
           <AuthProvider>
             <AppShell>{children}</AppShell>
