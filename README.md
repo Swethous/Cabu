@@ -1,148 +1,98 @@
-# 📘 株式コミュニティサービス企画案（README）
+# Cabu
 
-## Language
-- 🇯🇵 [日本語 README](README.md)
-- 🇰🇷 [한국어 README](backend/README_KR.md)
+> **米国株・日本株の銘柄別コミュニティ + チャート**を1画面で提供する軽量コミュニティサービスです。  
+> **情報（チャート/出来高）確認 → 意見（コメント）閲覧/投稿**を素早くつなげるUXを目指しました。
 
-## 📌 サービス概要
-米国株・日本株を中心に、ユーザー同士が**リアルタイムで意見を共有**できるコミュニティサービスです。  
-株価チャートとコミュニティ機能を1つの画面で提供し、**情報収集とコミュニケーションを同時に**行える設計になっています。  
-**初心者でも使いやすい、シンプルで高速な UI** を目指しています。
-
----
-
-## 📍 開発背景
-投資を行う中で、銘柄に関する情報や市場の反応を調べる際は、私はよく韓国の株式コミュニティを利用していました。  
-しかし、日本株へ投資を始めた際、韓国の「トス証券コミュニティ」のような**軽くて使いやすい株式コミュニティ**が見つかりませんでした。  
-既存サービスは UI が複雑であったり、コミュニティ機能がメインではなかったりと、初心者には敷居が高いものでした。
-
-そこで、
-
-> **「日本にも初心者が気軽に利用できる軽量な株式コミュニティを作ろう」**
-
-という思いから本サービスを企画しました。
+## Links
+- サービス: https://cabuapp.com
+- Korean README: ./README.kr.md
+- Figma（画面設計）: https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobile?node-id=0-1&p=f&t=dZ683DSGNzhnh5Lx-0
 
 ---
 
-## 🎯 ターゲットユーザー
-
-### ① 日本株に興味を持つ個人投資家（初心者 〜 中級者）
-- チャートと意見を1画面で確認したい  
-- 市場の反応を素早く知りたい  
-
-### ② 投資情報をスマホ中心で収集する20〜40代
-- 軽量な React ベースの UI を好む  
-- 直感的で分かりやすい操作性を求める  
-
-### ③ 既存コミュニティに不満を持つユーザー
-- 広告が多く、画面が重いサービスに疲れている 
-- 匿名で気軽に意見交換できる場を求めている  
+## デモ動画
+[![Demo Video](assets/demo-thumbnail.png)](assets/Cabu_demo.mp4)  
+- 視聴: [Cabu Demo](assets/Cabu_demo.mp4)
 
 ---
 
-## 💡 サービス利用イメージ
-- ホーム画面で **人気 / 急上昇 / 急落** 銘柄を素早くチェック  
-- 銘柄詳細ページで **リアルタイムチャート + 出来高 + コミュニティ** を同時に確認  
-- 気になる銘柄を **ブックマーク** で保存  
-- コメントを通じて投資判断に役立つ情報を共有  
+## スクリーンショット
+
+| SEO（Metadata/OG） | Login（JWT HttpOnly + Google） |
+|---|---|
+| ![SEO](assets/cabu_1.png) | ![Login](assets/cabu_2.png) |
+
+| Main（Rank/Trends） | Search（Redis Prefix Autocomplete） |
+|---|---|
+| ![MainPage](assets/cabu_3.png) | ![Search](assets/cabu_4.png) |
+
+| Chart（lightweight + Yahoo） | Community（Post/Image/Like/Comment） |
+|---|---|
+| ![Chart](assets/cabu_5.png) | ![Community](assets/cabu_6.png) |
 
 ---
 
-## 🧲 ユーザー獲得戦略
-- Twitter(X) を中心とした投資コミュニティでのプロモーション  
-- 人気銘柄の自動ランキング機能で自然流入を促進  
-- 初心者向けのシンプルな UI によりハードルを下げる  
-- SEO 対策：「銘柄名 + コミュニティ / 掲示板」での検索流入  
-- モバイル Web 最適化によるアクセス性向上  
+## 開発背景
+韓国では軽くて使いやすい株式コミュニティをよく利用していましたが、  
+日本の投資環境では **「チャートとコミュニティを1画面で素早く確認できる」** サービスが少ないと感じました。  
+初心者でも迷わず使える **軽量で高速な株式コミュニティ** を目指して Cabu を開発しました。
 
 ---
 
-## 🚀 差別化ポイント・強み
-
-### ① 超軽量・超高速 UI
-React + Lightweight Charts + キャッシュ構造により、  
-既存サービスよりも**圧倒的に早いデータ・チャート表示**を実現します。
-
-### ② 最小構成の UI による高いユーザビリティ
-主要機能に集中：  
-- シンプルなチャート  
-- コメントコミュニティ  
-- ブックマーク  
-
-無駄を排除した UI で、初心者でも迷わず使える設計です。
+## 主な機能
+- 会員登録/ログイン（**JWT + HttpOnly Cookie**, Googleログイン）、パスワードリセット
+- 銘柄検索 + **オートコンプリート（prefix）**
+- 銘柄詳細：**チャート + 出来高 + コミュニティ（コメント）** を1画面で提供
+- 投稿/コメント、いいね、ブックマーク
+- 人気/急騰/急落などランキング
+- お問い合わせ
 
 ---
 
-## 🧩 機能候補
+## アーキテクチャ
+![Architecture](assets/architecture.png)
 
-### ✔ MVP（最小リリース）
-- [✔] 会員登録 / ログイン（JWT）  
-- [✔] 株価チャート表示（Yahoo Finance API）  
-- [✔] 人気 / 急上昇 / 急落 銘柄リスト
-- [✔]銘柄検索機能
-- [✔]銘柄詳細ページ  
-  - チャート  
-  - 出来高グラフ  
-  - コメント（投稿 / 表示）  
-  - コメントへの「いいね」
-- [✔] ブックマーク機能  
-- [✔] お問い合わせ
-
----
-
-### ✔ 本リリース（拡張）
-- [ ] リアルタイムコメント（WebSocket）  
-- [✔] オートコンプリート検索
-- [ ] SEO 改善  
-- [ ] ニュース API 連携  
-- [ ] AI によるニュース要約 / データ分析（任意）  
-- [ ] ユーザーフォロー機能  
-- [✔] Google ログイン
-- [ ] モバイルアプリ（React Native）  
-- [ ] 動的OGP
-- [ ] 利用規約
-- [ ] プライバシーポリシー
-- [ ] パスワードリセット機能
+Client → Next.js（UI + BFF）→ Rails API の流れでリクエストを処理します。  
+認証は Rails がJWTを発行し、Next.js が HttpOnly Cookie（access_token）で管理します。  
+UIは「チャート + コミュニティ」を1画面で素早く探索できるように設計しました。  
+Rails API は Supabase（PostgreSQL）・Upstash Redis（autocomplete）・Supabase Storage（画像）と連携します。  
+また Yahoo Finance API から市況データを取得し、GitHub Actions でバッチを定期実行します。
 
 ---
 
 ## 技術スタック
 
-### バックエンド
-
+### Backend
 | 技術 | バージョン / サービス | 採用理由 |
 |---|---|---|
-| Ruby | 3.3.10 | Rails 7.2 と相性がよく、安定した最新ランタイムとして採用 |
+| Ruby | 3.3.10 | Rails 7.2 と相性がよく、安定した最新ランタイム |
 | Ruby on Rails（API） | 7.2.3 | API中心で開発しやすく、生産性と保守性のバランスが良い |
 | 認証 | JWT + HttpOnly Cookie | トークンをHttpOnly Cookieに保存し、XSSリスクを抑えつつ認証フローを単純化 |
-| PostgreSQL | Supabase PostgreSQL（本番） | マネージドPostgreSQLで運用負荷を下げ、安定的にデータを保持 |
-| Redis | Upstash Redis（Managed） | prefixベースの自動補完（autocomplete）の高速化に活用 |
+| PostgreSQL | Supabase PostgreSQL（本番） | マネージドDBで運用負荷を下げ、安定的にデータを保持 |
+| Redis | Upstash Redis（Managed） | prefixベースのオートコンプリートで高速な検索体験を実現 |
 | Faraday | 2.14 | Yahoo Finance 等の外部API連携をシンプルに実装 |
 
-### フロントエンド
-
+### Frontend
 | 技術 | バージョン / サービス | 採用理由 |
 |---|---|---|
-| Next.js | 16.1.1 | App Router + Route Handlers（BFF）でSSR/SEOとAPI連携を一体運用しやすい |
-| TypeScript | 5 | 型安全性により不具合を早期に検出し、保守性を向上 |
-| TanStack Query（React Query） | 5.90.16 | サーバー状態のキャッシュ/再取得/無限スクロールなどの制御が容易 |
+| Next.js | 16.1.1 | App Router + **BFF（Route Handlers）** でSSR/SEOとAPI連携を一体運用 |
+| TypeScript | 5 | 型安全性で不具合を早期に検出し、保守性を向上 |
+| TanStack Query（React Query） | 5.90.16 | サーバー状態のキャッシュ/再取得/無限スクロールを管理しやすい |
 | lightweight-charts | 5.1.0 | 株価チャートを軽量かつ高速に描画可能 |
-| Supabase JS | 2.93.3 | Supabase Storage（画像アップロード）連携をシンプルに実装 |
+| Supabase JS | 2.93.3 | Supabase Storage（画像アップロード）連携を簡素化 |
 | Sonner | 2.0.7 | 通知（Toast）UIを軽量に実装してUXを改善 |
 
-### インフラ
-
+### Infrastructure
 | 技術 | バージョン / サービス | 採用理由 |
 |---|---|---|
 | Fly.io | Backend Hosting | Rails API をコンテナでシンプルにデプロイ・運用可能 |
-| Vercel | Frontend Hosting | Next.js と相性が良く、Git連携の自動デプロイ/Previewが便利 |
-| PostgreSQL | Supabase PostgreSQL（本番） | マネージドで運用コストを抑えつつ、安定運用 |
-| Redis | Upstash Redis（Managed） | prefix検索など高速アクセスが必要な機能に利用 |
+| Vercel | Frontend Hosting | Next.js と相性が良く、自動デプロイ/Previewが便利 |
+| Supabase PostgreSQL | Managed DB | 運用DBをマネージドで管理し、運用負荷を削減 |
+| Upstash Redis | Managed Redis | 高速アクセスが必要な機能（autocomplete等）に利用 |
 | Supabase Storage | Managed Storage | 投稿画像/アバター画像の保存・配信を簡素化 |
-| Docker Compose | `infra/docker/compose.yml` | ローカル開発環境を統一し、再現性とオンボーディングを改善 |
+| Docker Compose | `infra/docker/compose.yml` | ローカル環境を統一し、再現性を確保 |
 
-### 開発環境・CI/CD
-
+### Dev Environment · CI/CD
 | 技術 | バージョン / サービス | 採用理由 |
 |---|---|---|
 | Ruby | 3.3.10 | Rails 実行環境を固定し、安定運用 |
@@ -150,25 +100,49 @@ React + Lightweight Charts + キャッシュ構造により、
 | GitHub Actions | CI/CD | 品質チェックとデプロイを自動化し、運用効率を向上 |
 | CI（Backend） | Brakeman / RuboCop / Rails test | セキュリティ・コード品質・回帰確認を自動化 |
 | CD（Backend） | Fly Deploy Workflow | `main` + `backend/**` 変更時にバックエンドを自動デプロイ |
-| CD（Frontend） | Vercel Git Integration | ブランチごとにPreview、`main`はProductionへ自動反映 |
-| Scheduled Workflows | Rankings / Popular / Sparklines | 定期バッチ（ランキング/人気/スパークライン更新）をGitHub Actionsで自動実行 |
+| CD（Frontend） | Vercel Git Integration | ブランチごとPreview、`main`はProductionへ自動反映 |
+| Scheduled Workflows | Rankings / Popular / Sparklines | 定期バッチを GitHub Actions で自動実行 |
 
 ---
 
-### 画面遷移図
-Figma：https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobile?node-id=0-1&p=f&t=dZ683DSGNzhnh5Lx-0
+## 課題解決 / 技術的ポイント
 
-### 未ログインでも閲覧または利用できるページ
-以下の項目は適切に未ログインでも閲覧または利用できる画面遷移になっているか？
-- [✔] 記事閲覧機能　（未ログインでも閲覧可能）
-- [✔] コメント閲覧機能（未ログインでも閲覧可能）
-- [✔] メインページ（未ログインでも閲覧可能）
+- **銘柄メタデータ（i18n）対応：JPX Excel + Override**
+  - Yahoo Financeだけでは日本語銘柄名が不足するため、**JPX公式Excelを収集/パース**して日本株マスターを構築しました。
+  - 米国株は日本語が存在しないケースが多く、**主要銘柄の日本語Override**で検索/詳細表示の品質を改善しました。
 
-### メールアドレス・パスワード変更確認項目
-直接変更できるものではなく、一旦メールなどを介して専用のページで変更する画面遷移になっているか？
-- [x] パスワード
+- **React → Next.js 移行（キャッシュ共有 + SEO）**
+  - **revalidateベースのキャッシュ**でユーザー間のキャッシュを共有し、外部API呼び出し回数を削減しました。
+
+- **BFF（Route Handlers）でセキュリティ/ CORS / 通信を単純化**
+  - ブラウザ要求をNextに集約し、Railsはサーバー間通信で呼び出すことで **CORSなし** の構成にしました。
+  - **JWT + HttpOnly Cookie** によりトークンをJSで直接扱わない設計にしました。
+
+- **Upstash Redis Prefix Autocomplete**
+  - prefix検索をRedisで処理し、検索レスポンスとUXを改善しました。
+
+- **チャート最適化：Backend Cache + Front Revalidate**
+  - Yahoo Financeデータはバックエンドでキャッシュし、フロントで再検証することで **呼び出し削減と最新性** を両立しました。
+
+- **Sidekiq → GitHub Actions（運用/コスト最適化）**
+  - 常時ワーカーが不要な処理は **Actions Cron** に移行し、運用を単純化しました。
+
+- **React QueryでUX改善（Infinite + Optimistic）**
+  - サーバー状態をキャッシュ管理し、**Infinite Query** と **Optimistic Update** で探索性/反応性を改善しました。
 
 ---
 
-## 📄 ライセンス
-本プロジェクトは個人のポートフォリオ・学習目的で作成されたものです。
+## 今後の改善
+- ニュースAPI連携 + AI要約
+- 投稿の投票機能
+- 利用規約 / プライバシーポリシー
+
+---
+
+## ERD
+![ERD](assets/erd.png)
+
+---
+
+## License
+本プロジェクトは個人ポートフォリオ・学習目的で作成されました。

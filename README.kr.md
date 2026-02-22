@@ -1,69 +1,67 @@
 # Cabu
 
 > **미국주/일본주 종목별 커뮤니티 + 차트**를 한 화면에서 제공하는 경량 주식 커뮤니티 서비스  
-> 빠르게 **정보(차트/거래량) 확인 → 의견(댓글) 확인/작성**까지 이어지는 UX를 목표로 했습니다.
-
----
+> **정보(차트/거래량) 확인 → 의견(댓글) 확인/작성**을 빠르게 이어갈 수 있도록 UX를 설계했습니다.
 
 ## Links
-- 서비스 URL: https://cabuapp.com
-- Figma(화면 흐름): https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobile?node-id=0-1&p=f&t=dZ683DSGNzhnh5Lx-0
-
-> (선택) GitHub Repo / 소개 영상 / 데모 계정 링크가 있으면 여기에 추가
+- 서비스: https://cabuapp.com
+- Figma(화면 설계): https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobile?node-id=0-1&p=f&t=dZ683DSGNzhnh5Lx-0
 
 ---
 
-## 스크린샷 / 데모
-> (TODO) 메인 / 종목 상세 / 검색(오토컴플리트) / 로그인 / 마이페이지 등 3~6장 첨부
+## Demo Video
+[![Demo Video](assets/demo-thumbnail.png)](assets/Cabu_demo.mp4)  
+- Watch: [Cabu Demo](assets/Cabu_demo.mp4)
 
 ---
 
-## 개발 배경
-한국에서는 가볍고 사용하기 쉬운 주식 커뮤니티(예: 토스증권 커뮤니티)를 자주 이용했습니다.  
-하지만 일본 주식 투자 환경에서는 **차트와 커뮤니티를 한 화면에서 빠르게 확인**할 수 있는 서비스가 드물고, 기존 서비스는 UI가 복잡하거나 커뮤니티 기능이 부가적인 경우가 많았습니다.  
-그래서 **초보자도 부담 없이 사용할 수 있는 ‘가볍고 빠른’ 주식 커뮤니티**를 직접 만들었습니다.
+## Screenshots
+
+| SEO (Metadata/OG) | Login (JWT HttpOnly + Google) |
+|---|---|
+| ![SEO](assets/cabu_1.png) | ![Login](assets/cabu_2.png) |
+
+| Main (Rank/Trends) | Search (Redis Prefix Autocomplete) |
+|---|---|
+| ![MainPage](assets/cabu_3.png) | ![Search](assets/cabu_4.png) |
+
+| Chart (lightweight + Yahoo) | Community (Post/Image/Like/Comment) |
+|---|---|
+| ![Chart](assets/cabu_5.png) | ![Community](assets/cabu_6.png) |
 
 ---
 
-## 핵심 기능
-- 회원가입 / 로그인 (**JWT + HttpOnly Cookie**, Google 로그인)
-- 비밀번호 재설정
+## Background
+한국에서는 가볍고 사용하기 쉬운 주식 커뮤니티를 자주 이용했지만,  
+일본 투자 환경에서는 **차트와 커뮤니티를 한 화면에서 빠르게 확인**할 수 있는 서비스가 드물었습니다.  
+초보자도 부담 없이 사용할 수 있는 **가볍고 빠른 주식 커뮤니티**를 목표로 Cabu를 만들었습니다.
+
+---
+
+## Key Features
+- 회원가입/로그인 (**JWT + HttpOnly Cookie**, Google 로그인), 비밀번호 재설정
 - 종목 검색 + **오토컴플리트(prefix 기반)**
-- 종목 상세: **실시간 차트 + 거래량 + 커뮤니티(댓글)**를 한 화면에서 제공
-- 댓글 작성/조회, 댓글 좋아요
-- 북마크(관심 종목 저장)
+- 종목 상세: **차트 + 거래량 + 커뮤니티(댓글)** 한 화면 제공
+- 게시글/댓글 작성, 좋아요, 북마크
 - 인기/급상승/급락 등 랭킹 리스트
 - 문의하기
 
 ---
 
-## 아키텍처
-- **Next.js(App Router) Route Handlers를 BFF로 사용**
-  - 브라우저는 Next.js에만 요청
-  - Next.js가 Rails API로 서버-서버 요청을 수행하여 인증/통신 흐름 단순화
-- 데이터 저장소
-  - 운영 DB: Supabase PostgreSQL
-  - 자동완성/캐시: Upstash Redis
-  - 이미지 저장: Supabase Storage
-- 배치
-  - 랭킹/인기/스파크라인 갱신 작업을 **GitHub Actions Scheduled Workflows(Cron)**로 정기 실행
+## Architecture
+![Architecture](assets/architecture.png)
 
-> (TODO) 아키텍처 다이어그램 이미지 1장 넣으면 완성도 급상승
+Client → Next.js(UI + BFF) → Rails API 흐름으로 요청을 처리했습니다.  
+인증은 Rails에서 JWT를 발급하고, Next.js가 HttpOnly 쿠키(access_token)로 관리합니다.  
+UI는 “차트 + 커뮤니티”를 한 화면에서 빠르게 탐색할 수 있도록 구성했습니다.  
+Rails API는 Supabase(PostgreSQL)·Upstash Redis(autocomplete)·Supabase Storage(이미지)와 연동합니다.  
+또한 Yahoo Finance API에서 시세 데이터를 가져오고, GitHub Actions로 배치 작업을 주기적으로 실행합니다.
 
 ---
 
-## ERD
-> (TODO) PNG 파일 추가  
-> 예시: `docs/erd.png` 로 저장 후 아래처럼 삽입
+## Tech Stack
 
-![ERD](docs/erd.png)
-
----
-
-## 기술 스택
-
-### 백엔드
-
+### Backend
 | 기술 | 버전 / 서비스 | 채택 이유 |
 |---|---|---|
 | Ruby | 3.3.10 | Rails 7.2와 호환성이 좋고 안정적인 최신 런타임 |
@@ -73,8 +71,7 @@
 | Redis | Upstash Redis (매니지드) | prefix 기반 자동완성(autocomplete) 구현을 위해 빠른 조회 성능을 활용 |
 | Faraday | 2.14 | Yahoo Finance 등 외부 API 연동을 단순하고 유연하게 구현 |
 
-### 프론트엔드
-
+### Frontend
 | 기술 | 버전 / 서비스 | 채택 이유 |
 |---|---|---|
 | Next.js | 16.1.1 | App Router 기반으로 SSR/SEO와 **BFF(Route Handlers)** 구성이 가능해 통신 구조를 단순화 |
@@ -84,8 +81,7 @@
 | Supabase JS | 2.93.3 | Supabase Storage(이미지 업로드) 연동을 간단하게 구현 |
 | Sonner | 2.0.7 | 토스트/알림 UI를 가볍게 구성해 UX 개선 |
 
-### 인프라
-
+### Infrastructure
 | 기술 | 버전 / 서비스 | 채택 이유 |
 |---|---|---|
 | Fly.io | Backend Hosting | Rails API를 컨테이너로 배포/운영하기 간단하고 안정적 |
@@ -95,8 +91,7 @@
 | Supabase Storage | Managed Storage | 게시글 이미지/아바타 이미지 업로드 및 제공을 단순화 |
 | Docker Compose | `infra/docker/compose.yml` | 로컬 개발 환경을 통일해 재현성과 온보딩을 개선 |
 
-### 개발환경 · CI/CD
-
+### Dev Environment · CI/CD
 | 기술 | 버전 / 서비스 | 채택 이유 |
 |---|---|---|
 | Ruby | 3.3.10 | Rails 실행 환경을 안정적으로 고정 |
@@ -109,27 +104,44 @@
 
 ---
 
-## 과제 해결 / 기술적 포인트
-> 아래 항목은 “문제 → 선택 → 이유 → 결과” 흐름으로 짧게 정리하면 임팩트가 큽니다.
+## Problem Solving · Technical Highlights
 
-- **JWT + HttpOnly Cookie 인증**
-  - (TODO) 토큰 저장 전략, 보안 고려사항, 만료/갱신 전략(있다면)
-- **BFF(Route Handlers) 구조**
-  - (TODO) 브라우저 요청을 Next로 통일, 서버-서버 호출로 인증/통신 단순화
-- **Upstash Redis prefix 오토컴플리트**
-  - (TODO) 키 설계/조회 방식/성능 개선 포인트
-- **GitHub Actions 배치 운영**
-  - (TODO) 워커 상시 운영 대신 Cron 채택(비용/운영 단순화) + 실행 흐름
+- **종목 메타데이터(i18n) 해결: JPX 엑셀 + 오버라이드**
+  - Yahoo Finance만으로는 일본어 종목명이 부족해, **JPX 공식 엑셀을 수집/파싱**해 일본 종목 마스터를 구축했습니다.
+  - 미국 종목은 **주요 종목 일본어 오버라이드 파일**로 보완해 검색/상세에서 일관된 표기를 제공했습니다.
+
+- **React → Next.js 마이그레이션(캐시 공유 + SEO)**
+  - **revalidate 기반 캐시**로 사용자 간 캐시를 공유해 외부 API 호출을 줄이고, 로딩 체감을 개선했습니다.
+
+- **BFF(Route Handlers)로 보안·CORS·통신 단순화**
+  - 브라우저 요청을 Next로 통일하고 Rails는 서버-서버로 호출해 **CORS 없이** 구조를 단순화했습니다.
+  - **JWT + HttpOnly Cookie**로 토큰을 JS에서 직접 다루지 않도록 했습니다.
+
+- **Upstash Redis Prefix Autocomplete**
+  - prefix 기반 자동완성 조회를 Redis로 처리해 검색 응답 속도를 개선했습니다.
+
+- **차트 최적화: Backend Cache + Front Revalidate**
+  - Yahoo Finance 데이터는 백엔드 캐시 + 프론트 재검증으로 **호출 최소화와 최신성**을 균형 있게 유지했습니다.
+
+- **Sidekiq → GitHub Actions 배치 전환(비용/운영)**
+  - 워커 상시 구동이 필요 없는 작업은 **Actions Cron**으로 전환해 비용을 줄이고 운영을 단순화했습니다.
+
+- **React Query로 UX 개선(Infinite + Optimistic)**
+  - 서버 상태를 캐시 기반으로 관리하고, **Infinite Query**와 **Optimistic Update**로 탐색/반응성을 개선했습니다.
 
 ---
 
-## 향후 개선
-- 뉴스 API 연동 + AI 요약(투자 정보 탐색 효율 개선)
-- 게시글 작성 시 **투표 기능**(의견 수집/집계)
-- 이용약관
-- 개인정보처리방침
+## Future Improvements
+- 뉴스 API 연동 + AI 요약
+- 게시글 투표 기능
+- 이용약관 / 개인정보처리방침
 
 ---
 
-## 라이선스
+## ERD
+![ERD](assets/erd.png)
+
+---
+
+## License
 본 프로젝트는 개인 포트폴리오 및 학습 목적으로 제작되었습니다.
