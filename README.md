@@ -1,18 +1,18 @@
 # Cabu
 
 > **米国株・日本株の銘柄別コミュニティ + チャート**を1画面で提供する軽量コミュニティサービスです。  
-> **情報（チャート/出来高）確認 → 意見（コメント）閲覧/投稿**を素早くつなげるUXを目指しました。
+> **情報（Chart/Ranking）確認 → 意見（コメント）閲覧/投稿**を素早くつなげるUXを目指しました。
 
 ## Links
 - サービス: https://cabuapp.com
-- Korean README: ./README.kr.md
+- Korean README: [README.kr.md](README.kr.md)
 - Figma（画面設計）: https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobile?node-id=0-1&p=f&t=dZ683DSGNzhnh5Lx-0
 
 ---
 
 ## デモ動画
-[![Demo Video](assets/demo-thumbnail.png)](assets/Cabu_demo.mp4)  
-- 視聴: [Cabu Demo](assets/Cabu_demo.mp4)
+[![Demo Video](assets/demo-thumbnail.png)](https://youtu.be/w67RfGxmHm4)  
+- 視聴: https://youtu.be/w67RfGxmHm4
 
 ---
 
