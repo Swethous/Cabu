@@ -9,24 +9,24 @@ module InstrumentMasters
 
     # JPX 市場・商品区分(10개) -> (security_type, jpx_section)
     SECTION_MAP = {
-    "プライム（内国株式）" => ["EQUITY", "PRIME"],
-    "スタンダード（内国株式）" => ["EQUITY", "STANDARD"],
-    "グロース（内国株式）" => ["EQUITY", "GROWTH"],
+    "プライム（内国株式）" => [ "EQUITY", "PRIME" ],
+    "スタンダード（内国株式）" => [ "EQUITY", "STANDARD" ],
+    "グロース（内国株式）" => [ "EQUITY", "GROWTH" ],
 
-    "プライム（外国株式）" => ["EQUITY", "PRIME"],
-    "スタンダード（外国株式）" => ["EQUITY", "STANDARD"],
-    "グロース（外国株式）" => ["EQUITY", "GROWTH"],
+    "プライム（外国株式）" => [ "EQUITY", "PRIME" ],
+    "スタンダード（外国株式）" => [ "EQUITY", "STANDARD" ],
+    "グロース（外国株式）" => [ "EQUITY", "GROWTH" ],
 
-    "PRO Market" => ["EQUITY", nil],
+    "PRO Market" => [ "EQUITY", nil ],
 
-    "ETF・ETN" => ["ETF", nil],
-    "REIT・ベンチャーファンド・カントリーファンド・インフラファンド" => ["REIT", nil],
-    "出資証券" => ["PS", nil],
+    "ETF・ETN" => [ "ETF", nil ],
+    "REIT・ベンチャーファンド・カントリーファンド・インフラファンド" => [ "REIT", nil ],
+    "出資証券" => [ "PS", nil ]
     }.freeze
 
     # CSV 헤더(일본어) 예:
     # コード, 銘柄名, 市場・商品区分, 33業種コード, 33業種区分, 17業種コード, 17業種区分, 規模コード, 規模区分
-    REQUIRED_HEADERS = ["コード", "銘柄名", "市場・商品区分"].freeze
+    REQUIRED_HEADERS = [ "コード", "銘柄名", "市場・商品区分" ].freeze
 
     def call(path:)
       raise ArgumentError, "CSV not found: #{path}" unless File.exist?(path)
@@ -63,7 +63,7 @@ module InstrumentMasters
 
           is_active: true,
           created_at: now,
-          updated_at: now,
+          updated_at: now
         }
       rescue => e
         # 한 줄이 깨져도 전체 중단 안 시키고 로그 남기기
@@ -96,7 +96,7 @@ module InstrumentMasters
 
       # 예상 밖 값이 들어오면 일단 보수적으로
       Rails.logger.warn("[JPX Import] unknown 市場・商品区分=#{label.inspect} -> fallback")
-      ["UNKNOWN", label]
+      [ "UNKNOWN", label ]
     end
   end
 end

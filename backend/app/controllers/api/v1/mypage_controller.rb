@@ -31,7 +31,7 @@ class Api::V1::MypageController < ApplicationController
   # GET /api/v1/mypage/posts
   def posts
     limit = params[:limit].presence&.to_i || 20
-    limit = [[limit, 1].max, 50].min
+    limit = [ [ limit, 1 ].max, 50 ].min
 
     scope = current_user.posts
                 .includes(:stock, stock: :stock_snapshot)
@@ -67,7 +67,7 @@ class Api::V1::MypageController < ApplicationController
   # GET /api/v1/mypage/liked_posts
   def liked_posts
     limit = params[:limit].presence&.to_i || 20
-    limit = [[limit, 1].max, 50].min
+    limit = [ [ limit, 1 ].max, 50 ].min
 
     scope = Post.joins(:post_likes)
                 .includes(:user, :stock, stock: :stock_snapshot)
@@ -105,7 +105,7 @@ class Api::V1::MypageController < ApplicationController
   # GET /api/v1/mypage/bookmarks
   def bookmarks
     limit = params[:limit].presence&.to_i || 20
-    limit = [[limit, 1].max, 50].min
+    limit = [ [ limit, 1 ].max, 50 ].min
 
     scope = current_user.bookmarks
                         .includes(stock: :stock_snapshot)
@@ -205,8 +205,8 @@ class Api::V1::MypageController < ApplicationController
   def decode_cursor(cursor)
     decoded = Base64.decode64(cursor)
     time_f, id = decoded.split("|")
-    [Time.at(time_f.to_f), id.to_i]
+    [ Time.at(time_f.to_f), id.to_i ]
   rescue
-    [Time.current, 0]
+    [ Time.current, 0 ]
   end
 end

@@ -3,17 +3,17 @@ require "set"
 
 class Api::V1::CommentsController < ApplicationController
   # index는 공개
-  skip_before_action :authenticate_user!, only: [:index]
-  # ✅ index에서만 토큰 있으면 current_user 세팅, 없으면 게스트
-  before_action :authenticate_user_optional!, only: [:index]
+  skip_before_action :authenticate_user!, only: [ :index ]
+  # index에서만 토큰 있으면 current_user 세팅, 없으면 게스트
+  before_action :authenticate_user_optional!, only: [ :index ]
 
-  before_action :set_post, only: [:index, :create]
-  before_action :set_comment, only: [:update, :destroy]
+  before_action :set_post, only: [ :index, :create ]
+  before_action :set_comment, only: [ :update, :destroy ]
 
   # GET /api/v1/posts/:post_id/comments?limit=20&cursor=...
   def index
     limit = params[:limit].presence&.to_i || 20
-    limit = [[limit, 1].max, 50].min
+    limit = [ [ limit, 1 ].max, 50 ].min
 
     scope =
       Comment.includes(:user)
@@ -32,7 +32,7 @@ class Api::V1::CommentsController < ApplicationController
     has_next = rows.length > limit
     comments = has_next ? rows.first(limit) : rows
 
-    # ✅ 이 페이지에 있는 comments 중, "내가 좋아요한 comment_id"만 한 번에 조회
+    # 이 페이지에 있는 comments 중, "내가 좋아요한 comment_id"만 한 번에 조회
     liked_ids =
       if current_user && comments.any?
         CommentLike.where(user_id: current_user.id, comment_id: comments.map(&:id))
@@ -115,7 +115,7 @@ class Api::V1::CommentsController < ApplicationController
     t_str, id_str = cursor.to_s.split("|", 2)
     raise ActionController::BadRequest, "Invalid cursor" if t_str.blank? || id_str.blank?
 
-    [Time.iso8601(t_str), Integer(id_str)]
+    [ Time.iso8601(t_str), Integer(id_str) ]
   rescue ArgumentError
     raise ActionController::BadRequest, "Invalid cursor"
   end

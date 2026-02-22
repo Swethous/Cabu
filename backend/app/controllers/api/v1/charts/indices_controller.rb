@@ -1,7 +1,7 @@
 # app/controllers/api/v1/charts/indices_controller.rb
 class Api::V1::Charts::IndicesController < ApplicationController
   skip_before_action :authenticate_user!
-  
+
   def main
     range    = params[:range].presence    || "1mo"
     interval = params[:interval].presence || "1d"

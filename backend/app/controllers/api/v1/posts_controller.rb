@@ -3,19 +3,19 @@ require "set"
 
 class Api::V1::PostsController < ApplicationController
   # index는 공개
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [ :index ]
   # ✅ index에서만 "토큰 있으면 current_user 세팅, 없으면 게스트" (401 안 냄)
-  before_action :authenticate_user_optional!, only: [:index]
+  before_action :authenticate_user_optional!, only: [ :index ]
 
   # update/destroy는 인증 필요 + owner 체크
-  before_action :set_post, only: [:update, :destroy]
+  before_action :set_post, only: [ :update, :destroy ]
 
   # GET /api/v1/stocks/:symbol/posts
   def index
     stock = find_or_create_stock!(params[:stock_symbol])
 
     limit = params[:limit].presence&.to_i || 20
-    limit = [[limit, 1].max, 50].min
+    limit = [ [ limit, 1 ].max, 50 ].min
 
     scope = Post.includes(:user)
                 .where(stock_id: stock.id)
@@ -127,7 +127,7 @@ class Api::V1::PostsController < ApplicationController
     t_str, id_str = cursor.to_s.split("|", 2)
     raise ActionController::BadRequest, "Invalid cursor" if t_str.blank? || id_str.blank?
 
-    [Time.iso8601(t_str), Integer(id_str)]
+    [ Time.iso8601(t_str), Integer(id_str) ]
   rescue ArgumentError
     raise ActionController::BadRequest, "Invalid cursor"
   end

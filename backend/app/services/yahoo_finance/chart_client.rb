@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "net/http"
 require "json"
 
@@ -43,15 +44,15 @@ module YahooFinance
         when "intraday"
           i = (interval.presence || "5m").to_s
           raise BadRequest, "interval must be one of: #{INTRADAY_INTERVALS.join(', ')}" unless INTRADAY_INTERVALS.include?(i)
-          [INTRADAY_RANGES.fetch(i), i]
+          [ INTRADAY_RANGES.fetch(i), i ]
         when "daily"
-          ["1y", "1d"]
+          [ "1y", "1d" ]
         when "weekly"
-          ["4y", "1wk"]
+          [ "4y", "1wk" ]
         when "monthly"
-          ["10y", "1mo"]
+          [ "10y", "1mo" ]
         when "yearly"
-          ["max", "1mo"]
+          [ "max", "1mo" ]
         end
 
       # ✅ 차트 데이터(core)만 캐시: 표시명 변경은 바로 반영되게 캐시 밖에서 합성
@@ -141,7 +142,7 @@ module YahooFinance
       timestamps.each_with_index do |t, i|
         o, h, l, c = opens[i], highs[i], lows[i], closes[i]
         v = vols[i]
-        next if [o, h, l, c].any?(&:nil?)
+        next if [ o, h, l, c ].any?(&:nil?)
 
         up = c.to_f >= o.to_f
         bar_color = up ? UP_COLOR : DOWN_COLOR

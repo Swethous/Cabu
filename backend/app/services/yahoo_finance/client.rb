@@ -96,7 +96,7 @@ module YahooFinance
         @crumb = body
         @crumb_fetched_at = Time.current
       else
-        Rails.logger.error("[YahooFinance::Client] crumb fetch failed status=#{r.status} body=#{body[0,120]}")
+        Rails.logger.error("[YahooFinance::Client] crumb fetch failed status=#{r.status} body=#{body[0, 120]}")
         @crumb = nil
       end
     end

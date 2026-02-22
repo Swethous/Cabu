@@ -1,5 +1,5 @@
 class Api::V1::PasswordResetsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create, :update]
+  skip_before_action :authenticate_user!, only: [ :create, :update ]
 
   GENERIC_MESSAGE = "If your email exists in our system, password reset instructions have been sent.".freeze
 

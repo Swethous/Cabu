@@ -9,7 +9,7 @@ module InstrumentMasters
 
     # 파일 헤더:
     # Symbol|Security Name|Market Category|Test Issue|Financial Status|Round Lot Size|ETF|NextShares
-    REQUIRED_HEADERS = ["Symbol", "Security Name", "ETF"].freeze
+    REQUIRED_HEADERS = [ "Symbol", "Security Name", "ETF" ].freeze
 
     def call(path:)
       raise ArgumentError, "TXT not found: #{path}" unless File.exist?(path)
@@ -46,7 +46,7 @@ module InstrumentMasters
 
           is_active: true,
           created_at: now,
-          updated_at: now,
+          updated_at: now
         }
       rescue => e
         Rails.logger.warn("[NASDAQ Import] skip row idx=#{idx} err=#{e.class}: #{e.message}")

@@ -34,8 +34,8 @@ export default function LoginClient() {
     setLoading(true);
 
     try {
-      const { user } = await loginApi({ email, password }); // ✅ BFF 호출
-      setUser(user); // ✅ 헤더/드로어 즉시 반영
+      const { user } = await loginApi({ email, password }); // BFF 호출
+      setUser(user); // 헤더/드로어 즉시 반영
       router.push("/");
     } catch (error: unknown) {
       const err = error as ApiError;

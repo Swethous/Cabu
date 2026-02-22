@@ -1,7 +1,7 @@
 module Api
   module V1
     class RankingsController < ApplicationController
-      skip_before_action :authenticate_user!, only: [:index]
+      skip_before_action :authenticate_user!, only: [ :index ]
 
       # GET /api/v1/rankings
       def index
@@ -21,10 +21,10 @@ module Api
         rows.each do |row|
           key = if row.kind == "popular"
                   "popular"
-                else
+          else
                   "#{row.market}:#{row.kind}"
-                end
-          
+          end
+
           rankings[key] << serialize_row(row, instrument_name_jp_by_symbol)
         end
 
@@ -67,12 +67,12 @@ module Api
 
         active_rows = InstrumentMaster.active
                                       .where(symbol: symbols)
-                                      .where.not(name_jp: [nil, ""])
+                                      .where.not(name_jp: [ nil, "" ])
                                       .pluck(:symbol, :name_jp)
 
         fallback_rows = InstrumentMaster
                         .where(symbol: symbols)
-                        .where.not(name_jp: [nil, ""])
+                        .where.not(name_jp: [ nil, "" ])
                         .pluck(:symbol, :name_jp)
 
         fallback_rows.to_h.merge(active_rows.to_h)

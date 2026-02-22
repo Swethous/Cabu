@@ -34,7 +34,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
 
       t.string  :country, limit: 10, default: "UNKNOWN", null: false
       t.datetime :last_seen_at
-      t.string  :currency, limit: 10
+      t.string :currency, limit: 10
 
       t.timestamps null: false
     end
@@ -42,7 +42,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
     add_index :stocks, :yahoo_symbol, unique: true
     add_index :stocks, :country
     add_index :stocks, :currency
-    add_index :stocks, [:is_core, :sort_order]
+    add_index :stocks, [ :is_core, :sort_order ]
     add_index :stocks, :last_seen_at
     add_index :stocks, :sparkline_enabled
 
@@ -84,8 +84,8 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :ranking_rows, [:market, :kind, :rank], unique: true, name: :index_ranking_rows_on_market_kind_rank
-    add_index :ranking_rows, [:market, :kind], name: :index_ranking_rows_on_market_kind
+    add_index :ranking_rows, [ :market, :kind, :rank ], unique: true, name: :index_ranking_rows_on_market_kind_rank
+    add_index :ranking_rows, [ :market, :kind ], name: :index_ranking_rows_on_market_kind
     add_index :ranking_rows, :stock_id, name: :index_ranking_rows_on_stock_id
 
     # -----------------------------
@@ -104,7 +104,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
     end
 
     # (stock_id, created_at) 인덱스는 stock_id 단독 조회도 커버(선두 컬럼)
-    add_index :posts, [:stock_id, :created_at], name: :index_posts_on_stock_id_and_created_at
+    add_index :posts, [ :stock_id, :created_at ], name: :index_posts_on_stock_id_and_created_at
     add_index :posts, :user_id, name: :index_posts_on_user_id
 
     # -----------------------------
@@ -120,7 +120,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :comments, [:post_id, :created_at], name: :index_comments_on_post_id_and_created_at
+    add_index :comments, [ :post_id, :created_at ], name: :index_comments_on_post_id_and_created_at
     add_index :comments, :user_id, name: :index_comments_on_user_id
 
     # -----------------------------
@@ -132,7 +132,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :post_likes, [:user_id, :post_id], unique: true, name: :index_post_likes_on_user_id_and_post_id
+    add_index :post_likes, [ :user_id, :post_id ], unique: true, name: :index_post_likes_on_user_id_and_post_id
     add_index :post_likes, :post_id, name: :index_post_likes_on_post_id
     add_index :post_likes, :user_id, name: :index_post_likes_on_user_id
 
@@ -145,7 +145,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :comment_likes, [:user_id, :comment_id], unique: true, name: :index_comment_likes_on_user_id_and_comment_id
+    add_index :comment_likes, [ :user_id, :comment_id ], unique: true, name: :index_comment_likes_on_user_id_and_comment_id
     add_index :comment_likes, :comment_id, name: :index_comment_likes_on_comment_id
     add_index :comment_likes, :user_id, name: :index_comment_likes_on_user_id
 
@@ -158,7 +158,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :bookmarks, [:user_id, :stock_id], unique: true, name: :index_bookmarks_on_user_id_and_stock_id
+    add_index :bookmarks, [ :user_id, :stock_id ], unique: true, name: :index_bookmarks_on_user_id_and_stock_id
     add_index :bookmarks, :user_id, name: :index_bookmarks_on_user_id
     add_index :bookmarks, :stock_id, name: :index_bookmarks_on_stock_id
 
@@ -180,7 +180,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.timestamps null: false
     end
 
-    add_index :price_candles, [:stock_id, :interval, :ts],
+    add_index :price_candles, [ :stock_id, :interval, :ts ],
               unique: true,
               name: :index_price_candles_on_stock_id_interval_ts_unique
     add_index :price_candles, :stock_id, name: :index_price_candles_on_stock_id

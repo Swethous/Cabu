@@ -40,27 +40,27 @@ module YahooFinance
     def build_body(market_lc:, kind:, limit:, offset:)
       sort_field, sort_type =
         case kind.to_s
-        when "market_cap" then ["intradaymarketcap", "DESC"]
-        when "gainers"    then ["percentchange", "DESC"]
-        when "losers"     then ["percentchange", "ASC"]
+        when "market_cap" then [ "intradaymarketcap", "DESC" ]
+        when "gainers"    then [ "percentchange", "DESC" ]
+        when "losers"     then [ "percentchange", "ASC" ]
         else
           raise ArgumentError, "unknown kind=#{kind.inspect}"
         end
 
       # 최소 시가총액 필터 (허수 제거)
       min_market_cap = case market_lc
-                       when "us" then 100_000_000      # $100M
-                       when "jp" then 5_000_000_000    # ¥5B
-                       else 0
-                       end
+      when "us" then 100_000_000      # $100M
+      when "jp" then 5_000_000_000    # ¥5B
+      else 0
+      end
 
       operands = [
-        { operator: "EQ", operands: ["region", market_lc] }
+        { operator: "EQ", operands: [ "region", market_lc ] }
       ]
 
       # 시가총액 필터 추가 (min_market_cap > 0일 때만)
       if min_market_cap > 0
-        operands << { operator: "GT", operands: ["intradaymarketcap", min_market_cap] }
+        operands << { operator: "GT", operands: [ "intradaymarketcap", min_market_cap ] }
       end
 
       {
