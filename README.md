@@ -10,13 +10,13 @@
 
 ---
 
-## デモ動画
+## Demo Video
 [![Demo Video](assets/demo-thumbnail.png)](https://youtu.be/w67RfGxmHm4)  
 - 視聴: https://youtu.be/w67RfGxmHm4
 
 ---
 
-## スクリーンショット
+## Screenshots
 
 | SEO（Metadata/OG） | Login（JWT HttpOnly + Google） |
 |---|---|
@@ -32,14 +32,14 @@
 
 ---
 
-## 開発背景
+## Background
 韓国では軽くて使いやすい株式コミュニティをよく利用していましたが、  
 日本の投資環境では **「チャートとコミュニティを1画面で素早く確認できる」** サービスが少ないと感じました。  
 初心者でも迷わず使える **軽量で高速な株式コミュニティ** を目指して Cabu を開発しました。
 
 ---
 
-## 主な機能
+## Key Features
 - 会員登録/ログイン（**JWT + HttpOnly Cookie**, Googleログイン）、パスワードリセット
 - 銘柄検索 + **オートコンプリート（prefix）**
 - 銘柄詳細：**チャート + 出来高 + コミュニティ（コメント）** を1画面で提供
@@ -49,7 +49,7 @@
 
 ---
 
-## アーキテクチャ
+## Architecture
 ![Architecture](assets/architecture.png)
 
 Client → Next.js（UI + BFF）→ Rails API の流れでリクエストを処理します。  
@@ -60,7 +60,7 @@ Rails API は Supabase（PostgreSQL）・Upstash Redis（autocomplete）・Supab
 
 ---
 
-## 技術スタック
+## Tech Stack
 
 ### Backend
 | 技術 | バージョン / サービス | 採用理由 |
@@ -105,7 +105,7 @@ Rails API は Supabase（PostgreSQL）・Upstash Redis（autocomplete）・Supab
 
 ---
 
-## 課題解決 / 技術的ポイント
+## Problem Solving · Technical Highlights
 
 - **銘柄メタデータ（i18n）対応：JPX Excel + Override**
   - Yahoo Financeだけでは日本語銘柄名が不足するため、**JPX公式Excelを収集/パース**して日本株マスターを構築しました。
@@ -132,7 +132,7 @@ Rails API は Supabase（PostgreSQL）・Upstash Redis（autocomplete）・Supab
 
 ---
 
-## 今後の改善
+## Future Improvements
 - ニュースAPI連携 + AI要約
 - 投稿の投票機能
 - 利用規約 / プライバシーポリシー
