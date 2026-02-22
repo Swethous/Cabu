@@ -12,7 +12,7 @@ class InstrumentMaster < ApplicationRecord
     ETF: "ETF",
     REIT: "REIT",
     PS: "PS",
-    OTHER: "OTHER",
+    OTHER: "OTHER"
   }, prefix: true
 
   scope :active, -> { where(is_active: true) }

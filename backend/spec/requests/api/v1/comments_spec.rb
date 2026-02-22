@@ -1,9 +1,20 @@
 require "rails_helper"
 
-RSpec.describe "Api::V1::Posts", type: :request do
-  describe "GET /api/v1/stocks/:stock_symbol/posts" do
+RSpec.describe "Api::V1::Comments", type: :request do
+  let!(:user) do
+    User.create!(
+      email: "comments-user@example.com",
+      name: "comments_user",
+      password: "abc123",
+      password_confirmation: "abc123"
+    )
+  end
+  let!(:stock) { Stock.create!(yahoo_symbol: "AAPL") }
+  let!(:post_record) { Post.create!(user: user, stock: stock, body: "seed post") }
+
+  describe "GET /api/v1/posts/:post_id/comments" do
     it "returns data/meta format when empty" do
-      get "/api/v1/stocks/AAPL/posts", params: { limit: 20 }
+      get "/api/v1/posts/#{post_record.id}/comments", params: { limit: 20 }
 
       expect(response).to have_http_status(:ok)
 
@@ -17,9 +28,9 @@ RSpec.describe "Api::V1::Posts", type: :request do
     end
   end
 
-  describe "POST /api/v1/stocks/:stock_symbol/posts" do
+  describe "POST /api/v1/posts/:post_id/comments" do
     it "requires authentication" do
-      post "/api/v1/stocks/AAPL/posts", params: { post: { body: "hello" } }
+      post "/api/v1/posts/#{post_record.id}/comments", params: { comment: { body: "hello" } }
 
       expect(response).to have_http_status(:unauthorized)
       expect(JSON.parse(response.body)).to include("error")

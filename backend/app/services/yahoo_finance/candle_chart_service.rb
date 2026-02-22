@@ -95,7 +95,7 @@ module YahooFinance
         v = volumes[idx]
 
         # 어떤 값이 nil이면 그 캔들은 스킵
-        next if [ts, o, h, l, c, v].any?(&:nil?)
+        next if [ ts, o, h, l, c, v ].any?(&:nil?)
 
         # 🔥 상세페이지는 lightweight-charts 같은 걸 쓴다고 가정하고
         # time을 "epoch seconds(Integer)" 로 내려줌
@@ -111,13 +111,13 @@ module YahooFinance
         }
       end
 
-      [candles, closes]
+      [ candles, closes ]
     end
 
     def build_price_info(closes)
       compact = closes.compact
 
-      return [nil, nil, nil] if compact.size < 2
+      return [ nil, nil, nil ] if compact.size < 2
 
       last_price = compact[-1]
       prev_price = compact[-2]
@@ -125,7 +125,7 @@ module YahooFinance
       change = last_price - prev_price
       change_pct = (change / prev_price * 100.0)
 
-      [last_price, change, change_pct]
+      [ last_price, change, change_pct ]
     end
   end
 end

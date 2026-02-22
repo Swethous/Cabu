@@ -4,7 +4,7 @@
 module Api
   module V1
     class SparklinesController < ApplicationController
-      skip_before_action :authenticate_user!, only: [:index]
+      skip_before_action :authenticate_user!, only: [ :index ]
 
       # GET /api/v1/sparklines?days=30
       def index

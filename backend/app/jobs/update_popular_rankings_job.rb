@@ -29,7 +29,7 @@ class UpdatePopularRankingsJob < ApplicationJob
       scores[stock_id] += score.to_f
     end
 
-    top_stock_ids = scores.sort_by { |stock_id, score| [-score, stock_id] }.first(limit).map(&:first)
+    top_stock_ids = scores.sort_by { |stock_id, score| [ -score, stock_id ] }.first(limit).map(&:first)
 
     return if top_stock_ids.empty?
 

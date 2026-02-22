@@ -22,6 +22,6 @@ class CreateContactInquiries < ActiveRecord::Migration[7.2]
     add_index :contact_inquiries, :status
     add_index :contact_inquiries, :reply_email
     add_index :contact_inquiries, :created_at
-    add_index :contact_inquiries, [:status, :created_at]
+    add_index :contact_inquiries, [ :status, :created_at ]
   end
 end

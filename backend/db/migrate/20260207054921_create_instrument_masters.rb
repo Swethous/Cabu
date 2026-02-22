@@ -30,7 +30,7 @@ class CreateInstrumentMasters < ActiveRecord::Migration[7.2]
 
     # 같은 provider 내 provider_symbol 중복 방지
     add_index :instrument_masters,
-              [:provider, :provider_symbol],
+              [ :provider, :provider_symbol ],
               unique: true,
               name: :index_instrument_masters_on_provider_and_provider_symbol
 

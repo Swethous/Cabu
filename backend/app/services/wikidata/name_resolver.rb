@@ -48,9 +48,9 @@ module Wikidata
 
     def self.parse_symbol(symbol)
       if symbol.end_with?(".T")
-        [symbol.delete_suffix(".T"), [TSE_QID]]
+        [ symbol.delete_suffix(".T"), [ TSE_QID ] ]
       else
-        [symbol, [NASDAQ_QID, NYSE_QID]]
+        [ symbol, [ NASDAQ_QID, NYSE_QID ] ]
       end
     end
 

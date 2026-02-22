@@ -3,7 +3,7 @@
 module Api
   module V1
     class AutocompleteController < ApplicationController
-      skip_before_action :authenticate_user!, only: [:index]
+      skip_before_action :authenticate_user!, only: [ :index ]
       # GET /api/v1/autocomplete?q=app&provider=NASDAQ
       def index
         q = params[:q].to_s

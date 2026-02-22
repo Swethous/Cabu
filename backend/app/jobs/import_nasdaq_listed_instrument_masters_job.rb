@@ -6,7 +6,7 @@ class ImportNasdaqListedInstrumentMastersJob < ApplicationJob
   DEFAULT_DIR  = Rails.root.join("db/data/nasdaq").to_s
   DEFAULT_PATH = Rails.root.join("db/data/nasdaq/nasdaqlisted.txt").to_s
 
-  # ✅ FTP에서 최신 파일 받아서(덮어쓰기) -> import
+  # FTP에서 최신 파일 받아서(덮어쓰기) -> import
   NASDAQ_LISTED_URL = "ftp://ftp.nasdaqtrader.com/symboldirectory/nasdaqlisted.txt"
 
   def perform(path: DEFAULT_PATH, download: true)

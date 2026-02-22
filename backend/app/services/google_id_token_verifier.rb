@@ -2,7 +2,7 @@ require "json"
 require "net/http"
 
 class GoogleIdTokenVerifier
-  GOOGLE_ISSUERS = ["https://accounts.google.com", "accounts.google.com"].freeze
+  GOOGLE_ISSUERS = [ "https://accounts.google.com", "accounts.google.com" ].freeze
   GOOGLE_JWKS_URI = URI("https://www.googleapis.com/oauth2/v3/certs")
   CACHE_KEY = "google_oidc_jwks"
 
@@ -19,7 +19,7 @@ class GoogleIdTokenVerifier
       @id_token,
       nil,
       true,
-      algorithms: ["RS256"],
+      algorithms: [ "RS256" ],
       verify_iss: true,
       iss: GOOGLE_ISSUERS,
       verify_aud: true,

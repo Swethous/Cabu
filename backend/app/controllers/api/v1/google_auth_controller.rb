@@ -1,5 +1,5 @@
 class Api::V1::GoogleAuthController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!, only: [ :create ]
 
   # POST /api/v1/auth/google
   def create
