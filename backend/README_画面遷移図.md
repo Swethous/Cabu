@@ -27,7 +27,7 @@ Figma：https://www.figma.com/design/VuqGq0HjgLSpIcxZkyb3Nn/stock_community_mobi
 
 ### メールアドレス・パスワード変更確認項目
 直接変更できるものではなく、一旦メールなどを介して専用のページで変更する画面遷移になっているか？
-- [x] パスワード
+- [✔] パスワード
 
 ---
 
